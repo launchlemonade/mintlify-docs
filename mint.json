@@ -1,24 +1,24 @@
 {
   "name": "LaunchLemonade",
   "logo": {
-    "light": "/logo/launch-lemonade-light.svg",
-    "dark": "/logo/launch-lemonade-dark.svg"
+    "light": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png",
+    "dark": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png"
   },
-  "favicon": "/favicon-lemonade.svg",
+  "favicon": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png",
   "colors": {
-    "primary": "#f4b400",
-    "light": "#fce8b3",
-    "dark": "#a37500"
+    "primary": "#fde217",
+    "light": "#000000",
+    "dark": "#000000"
   },
   "topbarLinks": [
     {
       "name": "Contact Us",
-      "url": "mailto:support@launchlemonade.com"
+      "url": "mailto:hello@launchlemonade.com"
     }
   ],
   "topbarCtaButton": {
     "name": "Get Started",
-    "url": "https://launchlemonade.com/start"
+    "url": "https://sip.launchlemonade.com"
   },
   "anchors": [
     {
@@ -31,7 +31,7 @@
       "name": "Community",
       "icon": "comments",
       "color": "#2564eb",
-      "url": "https://launchlemonade.com/community"
+      "url": "https://launchlemonade.com/"
     }
   ],
   "navigation": [
@@ -53,12 +53,7 @@
     }
   ],
   "footerSocials": {
-    "github": "https://github.com/launchlemonade",
-    "slack": "https://launchlemonade.com/community",
+    "youtube": "https://www.youtube.com/@launchlemonade",
     "x": "https://x.com/launchlemonade"
-  },
-  "integrations": {
-    "intercom": "APP_ID",
-    "frontchat": "CHAT_ID"
   }
 }
