@@ -6,9 +6,9 @@
   },
   "favicon": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png",
   "colors": {
-    "primary": "#fde217",
-    "light": "#000000",
-    "dark": "#000000"
+    "primary": "#f4b400",
+    "light": "#fce8b3",
+    "dark": "#a37500"
   },
   "topbarLinks": [
     {
@@ -28,9 +28,9 @@
       "url": "api-components"
     },
     {
-      "name": "Community",
+      "name": "WhatsApp Community",
       "icon": "comments",
-      "color": "#2564eb",
+      "color": "#f4b400",
       "url": "https://launchlemonade.app/"
     }
   ],
