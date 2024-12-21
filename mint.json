@@ -13,12 +13,12 @@
   "topbarLinks": [
     {
       "name": "Contact Us",
-      "url": "mailto:hello@launchlemonade.com"
+      "url": "mailto:hello@launchlemonade.app"
     }
   ],
   "topbarCtaButton": {
     "name": "Get Started",
-    "url": "https://sip.launchlemonade.com"
+    "url": "https://sip.launchlemonade.app"
   },
   "anchors": [
     {
@@ -31,7 +31,7 @@
       "name": "Community",
       "icon": "comments",
       "color": "#2564eb",
-      "url": "https://launchlemonade.com/"
+      "url": "https://launchlemonade.app/"
     }
   ],
   "navigation": [
