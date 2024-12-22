@@ -38,6 +38,12 @@
       "icon": "phone",
       "color": "#f4b400",
       "url": "https://docs.launchlemonade.app/Call"
+    },
+        {
+      "name": "Upcoming Events",
+      "icon": "calendar",
+      "color": "#f4b400",
+      "url": "https://docs.launchlemonade.app/Events"
     }
   ],
   "navigation": [
