@@ -49,7 +49,7 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "quickstart"]
+      "pages": ["introduction", "quickstart", "Templates"]
     },
     {
       "group": "API Components",
