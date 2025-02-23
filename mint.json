@@ -55,18 +55,6 @@
       "group": "Instructions and Templates",
       "pages": ["Templates"]
     },
-    {
-      "group": "API Components",
-      "pages": ["api-playground/overview", "api-playground/configuration"]
-    },
-    {
-      "group": "Settings",
-      "pages": ["settings/global", "settings/page"]
-    },
-    {
-      "group": "Analytics",
-      "pages": ["analytics/posthog"]
-    }
   ],
   "footerSocials": {
     "youtube": "https://www.youtube.com/@launchlemonade",
