@@ -49,7 +49,11 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "quickstart", "Templates"]
+      "pages": ["introduction", "quickstart", "Whitelabelling", "Team", "Embed"]
+    },
+     {
+      "group": "Instructions and Templates",
+      "pages": ["Templates"]
     },
     {
       "group": "API Components",
