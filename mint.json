@@ -49,11 +49,11 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "quickstart", "Whitelabelling", "Team", "Embed"]
+      "pages": ["introduction", "quickstart", "Whitelabelling", "Team", "Embed", "knowledge"]
     },
      {
       "group": "Instructions and Templates",
-      "pages": ["Templates", "knowledge"]
+      "pages": ["Templates"]
     },
   ],
   "footerSocials": {
