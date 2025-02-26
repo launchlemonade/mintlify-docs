@@ -1,63 +1,72 @@
 {
-  "name": "LaunchLemonade",
-  "logo": {
-    "light": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png",
-    "dark": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png"
-  },
-  "favicon": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png",
-  "colors": {
-    "primary": "#f4b400",
-    "light": "#fce8b3",
-    "dark": "#a37500"
-  },
-  "topbarLinks": [
-    {
-      "name": "Contact Us",
-      "url": "mailto:hello@launchlemonade.app"
-    }
-  ],
-  "topbarCtaButton": {
-    "name": "Get Started",
-    "url": "https://sip.launchlemonade.app"
-  },
-  "anchors": [
-    {
-      "name": "API Components",
-      "icon": "rectangle-terminal",
-      "color": "#f59f0b",
-      "url": "api-components"
+    "name": "LaunchLemonade",
+    "logo": {
+        "light": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png",
+        "dark": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png"
     },
-    {
-      "name": "WhatsApp Community",
-      "icon": "comments",
-      "color": "#f4b400",
-      "url": "https://chat.whatsapp.com/KeeA2yriNoQ8rDqzhIMP2u"
+    "favicon": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png",
+    "colors": {
+        "primary": "#f4b400",
+        "light": "#fce8b3",
+        "dark": "#a37500"
     },
+    "topbarLinks": [
         {
-      "name": "Setup 1-1 Call",
-      "icon": "phone",
-      "color": "#f4b400",
-      "url": "https://docs.launchlemonade.app/Call"
+            "name": "Contact Us",
+            "url": "mailto:hello@launchlemonade.app"
+        }
+    ],
+    "topbarCtaButton": {
+        "name": "Get Started",
+        "url": "https://sip.launchlemonade.app"
     },
+    "anchors": [
         {
-      "name": "Upcoming Events",
-      "icon": "calendar",
-      "color": "#f4b400",
-      "url": "https://docs.launchlemonade.app/Events"
+            "name": "API Components",
+            "icon": "rectangle-terminal",
+            "color": "#f59f0b",
+            "url": "api-components"
+        },
+        {
+            "name": "WhatsApp Community",
+            "icon": "comments",
+            "color": "#f4b400",
+            "url": "https://chat.whatsapp.com/KeeA2yriNoQ8rDqzhIMP2u"
+        },
+        {
+            "name": "Setup 1-1 Call",
+            "icon": "phone",
+            "color": "#f4b400",
+            "url": "https://docs.launchlemonade.app/Call"
+        },
+        {
+            "name": "Upcoming Events",
+            "icon": "calendar",
+            "color": "#f4b400",
+            "url": "https://docs.launchlemonade.app/Events"
+        }
+    ],
+    "navigation": [
+        {
+            "group": "Getting Started",
+            "pages": [
+                "introduction",
+                "quickstart",
+                "Whitelabelling",
+                "Team",
+                "Embed"
+            ]
+        },
+        {
+            "group": "Instructions and Templates",
+            "pages": [
+                "Templates",
+                "knowledge"
+            ]
+        }
+    ],
+    "footerSocials": {
+        "youtube": "https://www.youtube.com/@launchlemonade",
+        "x": "https://x.com/launchlemonade"
     }
-  ],
-  "navigation": [
-    {
-      "group": "Getting Started",
-      "pages": ["introduction", "quickstart", "Whitelabelling", "Team", "Embed"]
-    },
-     {
-      "group": "Instructions and Templates",
-      "pages": ["Templates", "knowledge"]
-},
-  ],
-  "footerSocials": {
-    "youtube": "https://www.youtube.com/@launchlemonade",
-    "x": "https://x.com/launchlemonade"
-  }
 }
