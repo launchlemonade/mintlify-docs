@@ -49,12 +49,12 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "quickstart", "Whitelabelling", "Team", "Embed", "knowledge"]
+      "pages": ["introduction", "quickstart", "Whitelabelling", "Team", "Embed"]
     },
      {
       "group": "Instructions and Templates",
-      "pages": ["Templates"]
-    },
+      "pages": ["Templates", "knowledge"]
+},
   ],
   "footerSocials": {
     "youtube": "https://www.youtube.com/@launchlemonade",
