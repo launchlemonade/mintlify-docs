@@ -1,90 +1,132 @@
-openapi: 3.0.0
-info:
-  title: AI Assistant API
-  description: API for interacting with an AI assistant.
-  version: 1.0.0
-servers:
-  - url: https://sip.launchlemonade.app/version-live/api/1.1/wf
+# AI Assistant API Documentation
 
-paths:
-  /run_assistant:
-    post:
-      summary: Run AI Assistant
-      description: Sends a query to the AI assistant and retrieves a response.
-      security:
-        - BearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - assistant_id
-                - input
-              properties:
-                assistant_id:
-                  type: string
-                  description: Unique identifier for the AI assistant.
-                conversation_id:
-                  type: string
-                  description: Unique identifier for the conversation (optional).
-                input:
-                  type: string
-                  description: User input/query to be processed.
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  Conversation_ID:
-                    type: string
-                    description: Unique conversation identifier.
-                  Response_ID:
-                    type: string
-                    description: Unique response identifier.
-                  Error:
-                    type: string
-                    description: Indicates if there was an error ("Yes" or "No").
-                  Error_Reason:
-                    type: string
-                    description: Description of any error encountered.
-  
-  /get_run_assistant:
-    post:
-      summary: Get AI Assistant Response
-      description: Retrieves the response for a given response ID.
-      security:
-        - BearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - response_id
-              properties:
-                response_id:
-                  type: string
-                  description: Unique identifier for the response request.
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  Response:
-                    type: string
-                    description: The AI assistant's response in Markdown format.
+## Overview
 
-components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
+This API enables interaction with the AI Assistant hosted at `sip.launchlemonade.app`. Users can send queries to an AI assistant and retrieve responses.
+
+## Authentication
+
+All requests require **Bearer Token Authentication**. Include the token in the request headers.
+
+### Header Format:
+
+```http
+Authorization: Bearer {your_token_here}
+```
+
+Replace `{your_token_here}` with your actual API token, which can be found in the Profile section.
+
+---
+
+## 1. Run AI Assistant
+
+### Endpoint:
+
+```
+POST https://sip.launchlemonade.app/version-live/api/1.1/wf/run_assistant
+```
+
+### Request Body:
+
+```json
+{
+    "assistant_id": "1739232381988x500647788770754560",
+    "conversation_id": "",
+    "input": "Your Input"
+}
+```
+
+#### Parameters:
+
+- `assistant_id` (**string**, required): Unique identifier for the AI assistant.
+- `conversation_id` (**string**, optional): Unique identifier for the conversation. Leave empty for a new conversation.
+- `input` (**string**, required): The user input/query to be processed by the assistant.
+
+### Response:
+
+```json
+{
+    "Conversation_ID": "945491230",
+    "Response_ID": "0251680630800",
+    "Error": "No",
+    "Error_Reason": ""
+}
+```
+
+#### Response Fields:
+
+- `Conversation_ID` (**string**): Unique identifier for the conversation.
+- `Response_ID` (**string**): Unique identifier for the response.
+- `Error` (**string**): Indicates if there was an error ("Yes" or "No").
+- `Error_Reason` (**string**): Description of the error, if any.
+
+---
+
+## 2. Get AI Assistant Response
+
+### Endpoint:
+
+```
+POST https://sip.launchlemonade.app/version-live/api/1.1/wf/get_run_assistant
+```
+
+### Request Body:
+
+```json
+{
+    "response_id": "17150"
+}
+```
+
+#### Parameters:
+
+- `response_id` (**string**, required): The unique identifier for the response you are requesting.
+
+### Response:
+
+```json
+{
+    "Response": "Response."
+}
+```
+
+#### Response Fields:
+
+- `Response` (**string**): The assistant’s response in Markdown format.
+
+---
+
+## Usage Example
+
+### Running the AI Assistant
+
+```bash
+curl -X POST "https://sip.launchlemonade.app/version-live/api/1.1/wf/run_assistant" \
+     -H "Authorization: Bearer {your_token_here}" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "assistant_id": "1739232381988x500647788770754560",
+           "conversation_id": "",
+           "input": "Tell me about AI"
+         }'
+```
+
+### Fetching AI Assistant Response
+
+```bash
+curl -X POST "https://sip.launchlemonade.app/version-live/api/1.1/wf/get_run_assistant" \
+     -H "Authorization: Bearer {your_token_here}" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "response_id": "0251680630800"
+         }'
+```
+
+---
+
+## Notes
+
+- If a conversation ID is not provided in the `run_assistant` request, a new conversation is created.
+- Responses are returned in Markdown format for easy readability and formatting.
+- Make sure your API token is valid and included in the headers for authentication.
+
