@@ -64,6 +64,12 @@
                 "Templates",
                 "knowledge"
             ]
+        },
+        {
+            "group": "API",
+            "pages": [
+                "Introduction"
+            ]
         }
     ],
     "footerSocials": {
