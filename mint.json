@@ -44,13 +44,13 @@
             "icon": "calendar",
             "color": "#f4b400",
             "url": "https://docs.launchlemonade.app/Events"
-        }
-      {
+        },
+        {
             "name": "Newsletter",
             "icon": "mail",
             "color": "#f4b400",
             "url": "https://launchlemonade.substack.com"
-        }
+        },
     ],
     "navigation": [
         {
