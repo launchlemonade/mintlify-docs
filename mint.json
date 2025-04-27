@@ -4,7 +4,7 @@
         "light": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png",
         "dark": "https://launchlemonade.app/wp-content/uploads/2024/04/Lemonade.png.png"
     },
-    "favicon": "https://launchlemonade.app/wp-content/uploads/2024/04/Frame-1171275135.png",
+    "favicon": "/favicon.ico",
     "colors": {
         "primary": "#f4b400",
         "light": "#fce8b3",
