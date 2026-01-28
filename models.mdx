@@ -1,0 +1,225 @@
+---
+title: 'AI Models'
+description: 'Choose the right AI model for your Lemonade'
+---
+
+## Overview
+
+You have access to 20+ AI models - but don't worry about picking the "perfect" one. Our Auto Routing feature can choose for you, and you can always switch later. Here's what each model is good at.
+
+## Accessing Model Settings
+
+<Steps>
+  <Step title="Open Lemonade Editor">
+    Navigate to **Lemonades** and click on your Lemonade
+  </Step>
+  <Step title="Go to Model Tab">
+    Click the **Model** tab (Tab 1) in the editor
+  </Step>
+  <Step title="Select a Model">
+    Browse and select your preferred model
+  </Step>
+</Steps>
+
+---
+
+## Free Models
+
+No credit card required – perfect for getting started and testing.
+
+| Model | Provider | Description | Best For |
+|-------|----------|-------------|----------|
+| **Auto Routing** | LaunchLemonade | We automatically select the best model | General use, uncertain needs |
+| **Gemini 2.5 Flash** | Google | Strong performance, fast responses | Quick tasks, high volume |
+| **GPT-4o Mini** | OpenAI | Good for almost everything | General purpose |
+| **Mistral Minimax-m1** | Mistral | Mixture of Expert model, super fast | Speed-critical tasks |
+
+<Tip>
+**Not sure which to pick?** Start with **Auto Routing** – we'll choose the best model for each request automatically!
+</Tip>
+
+---
+
+## Recommended Models
+
+Best balance of performance, reliability, and cost. These are our top picks for production use.
+
+| Model | Provider | Description | Tags |
+|-------|----------|-------------|------|
+| **Claude Sonnet 4.5** | Anthropic | Most advanced Claude with superior reasoning | Recommended, New |
+| **GPT-5.1** | OpenAI | Most advanced model from OpenAI | Recommended |
+| **xAI Grok 4.1 Fast** | xAI | Latest reasoning model from xAI | Recommended |
+| **Kimi K2 Thinking** | Moonshot | Optimized for coding, math, deterministic tasks | Recommended, New |
+| **Google Gemini 3** | Google | Latest reasoning model from Google | Recommended, New |
+| **Mistral Voxtral Small** | Mistral | Enhancement of Mistral Small 3 | Recommended, New |
+| **NVIDIA Nemotron Nano 12B** | NVIDIA | 12B parameter open multimodal reasoning | Recommended, New |
+
+---
+
+## What Each Provider is Good At
+
+### When to use Claude
+- You want thoughtful, detailed answers
+- You need to follow specific instructions carefully
+- Good for: content writing, analysis, customer support
+
+### When to use GPT (OpenAI)
+- You need versatile AI that handles most tasks well
+- You want something widely documented with lots of examples
+- Good for: general purpose, all-around use
+
+### When to use Gemini (Google)
+- You need fast responses with good quality
+- You're working with images and text together
+- Good for: quick answers, fact-checking, visual tasks
+
+### When to use Grok (xAI)
+- You need current information and real-time data
+- You want personality in your AI's responses
+- Good for: news, current events, engaging conversations
+
+### When to use Mistral
+- You need efficient, cost-effective AI
+- You work with multiple languages
+- Good for: multilingual content, budget-conscious projects
+
+### When to use Kimi (Moonshot)
+- You're building coding tools or math helpers
+- You need consistent, deterministic outputs
+- Good for: programming assistance, technical documentation
+
+### When to use Nemotron (NVIDIA)
+- You're experimenting with open-source AI
+- You need multimodal capabilities
+- Good for: research, customization, advanced use cases
+
+---
+
+## Model Comparison
+
+### By Capability
+
+| Task | Best Model(s) |
+|------|---------------|
+| **General Chat** | Claude Sonnet 4.5, GPT-5.1 |
+| **Complex Reasoning** | Claude Sonnet 4.5, Kimi K2 Thinking |
+| **Coding & Math** | Kimi K2 Thinking, GPT-5.1 |
+| **Creative Writing** | Claude Sonnet 4.5, GPT-5.1 |
+| **Fast Responses** | Gemini 2.5 Flash, Mistral Minimax-m1 |
+| **Cost-Effective** | GPT-4o Mini, Free tier models |
+
+### By Speed
+
+| Speed | Models |
+|-------|--------|
+| **Fastest** | Gemini 2.5 Flash, Mistral Minimax-m1 |
+| **Fast** | xAI Grok 4.1 Fast, GPT-4o Mini |
+| **Standard** | Claude Sonnet 4.5, GPT-5.1 |
+
+### By Cost
+
+| Tier | Models | Use Case |
+|------|--------|----------|
+| **Free** | Auto Routing, Gemini Flash, GPT-4o Mini, Mistral | Testing, personal use |
+| **Mid-Range** | Most recommended models | Production, business |
+| **Premium** | Latest flagship models | Mission-critical, complex tasks |
+
+---
+
+## Not Sure Which Model to Pick?
+
+**If you're just getting started:** Stick with Auto Routing - we'll handle the decisions for you
+
+**If you need the best quality:** Try Claude Sonnet 4.5 or GPT-5.1
+
+**If speed matters most:** Use Gemini 2.5 Flash or xAI Grok Fast
+
+**For coding help:** Kimi K2 Thinking is your friend
+
+**For budget projects:** GPT-4o Mini works great without costing anything
+
+---
+
+## Choosing the Right Model
+
+<Steps>
+  <Step title="Identify Your Use Case">
+    What will your Lemonade primarily do?
+  </Step>
+  <Step title="Consider Speed vs Quality">
+    Do you need fast responses or deeper thinking?
+  </Step>
+  <Step title="Factor in Budget">
+    Free for testing, recommended for production
+  </Step>
+  <Step title="Test and Iterate">
+    Try different models with the same prompts
+  </Step>
+</Steps>
+
+---
+
+## Advanced Settings
+
+Want to fine-tune how your AI responds? These settings give you more control.
+
+<AccordionGroup>
+  <Accordion title="Response Style (Temperature)">
+    This controls how creative vs. consistent your AI is:
+
+    | Setting | Value | What It Means | Best For |
+    |---------|-------|---------------|----------|
+    | **Precise** | 0.0-0.3 | Same question = same answer | Facts, customer support, data tasks |
+    | **Balanced** | 0.4-0.7 | Natural variety in responses | Most everyday uses |
+    | **Creative** | 0.8-1.0 | More unique responses each time | Brainstorming, creative writing |
+
+    **Example:** A customer support bot should use Precise (0.2) so customers get consistent answers. A creative writing assistant should use Creative (0.9) for fresh ideas.
+  </Accordion>
+
+  <Accordion title="Response Length">
+    Control how long your AI's answers can be:
+
+    | Length | Token Range | What It's Like |
+    |--------|-------------|----------------|
+    | **Short** | 256-512 tokens | Quick answers, like a text message |
+    | **Medium** | 512-1024 tokens | Detailed answers, like an email |
+    | **Long** | 1024-4096 tokens | Thorough explanations, like a report |
+
+    <Note>
+    Higher token limits cost more. Set appropriate limits for your use case - don't pay for long answers if you only need short ones!
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Best Practices
+
+1. **Start with Auto Routing** – Let us optimize for you
+2. **Test with real prompts** – Don't assume, verify
+3. **Match model to task** – Use technical models for technical tasks
+4. **Monitor costs** – Track usage in Profile & Billing
+5. **Stay updated** – New models are added regularly
+
+<Tip>
+You can change models at any time! If one isn't working well, try another. Experimenting is encouraged.
+</Tip>
+
+---
+
+## What's Next?
+
+<CardGroup cols={2}>
+  <Card title="Lemonade Editor" icon="pen" href="/lemonade-editor">
+    Learn about all the other settings and tabs
+  </Card>
+  <Card title="Memory Setup" icon="brain" href="/Memory">
+    Give your AI persistent memory
+  </Card>
+  <Card title="Deploy Your Lemonade" icon="rocket" href="/deployment">
+    Put your AI to work
+  </Card>
+  <Card title="Best Practices" icon="star" href="/quickstart">
+    Tips for getting great results
+  </Card>
+</CardGroup>
