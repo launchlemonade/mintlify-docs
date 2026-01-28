@@ -1,0 +1,349 @@
+---
+title: 'Lemonade Editor Guide'
+description: 'Shape your AI's personality, knowledge, and superpowers'
+---
+
+## Your Control Center
+
+The Lemonade Editor is your control center - where you shape your AI's personality, knowledge, and superpowers. Let's walk through each section so you know exactly what's possible.
+
+Think of the Editor as your AI workshop. You have 7 tabs on the left side, each handling a different part of your Lemonade. Plus, there's a **"Run Lemonade"** button in the top right to test everything as you go.
+
+## Accessing the Editor
+
+<Steps>
+  <Step title="Go to Lemonades">
+    Click **Lemonades** in the top navigation
+  </Step>
+  <Step title="Select a Lemonade">
+    Click on any Lemonade card to open it
+  </Step>
+</Steps>
+
+You can also create a new Lemonade by clicking **"+ NEW"** and it will open directly in the editor.
+
+## Pick Your AI Model
+
+First up: choosing which AI brain powers your Lemonade. Don't worry about picking the "perfect" model - Auto Routing works great for most people, and you can always switch later.
+
+### Free Models
+No credit card required - perfect for getting started:
+
+| Model | Provider | Description |
+|-------|----------|-------------|
+| **Auto Routing** | LaunchLemonade | We automatically select the best model |
+| **Gemini 2.5 Flash** | Google | Strong for lots of tasks, fast too! |
+| **GPT-4o Mini** | OpenAI | Good for almost everything you need |
+| **Mistral Minimax-m1** | Mistral | Mixture of Expert model, super fast |
+
+### Recommended Models
+Best balance of performance, reliability, and cost:
+
+| Model | Provider | Description | Tags |
+|-------|----------|-------------|------|
+| **Claude Sonnet 4.5** | Anthropic | Most advanced Claude with superior reasoning | Recommended, New |
+| **GPT-5.1** | OpenAI | Most advanced model from OpenAI | Recommended |
+| **xAI Grok 4.1 Fast** | xAI | Latest reasoning model from xAI | Recommended |
+| **Kimi K2 Thinking** | Moonshot | Optimized for coding, math, deterministic tasks | Recommended, New |
+| **Google Gemini 3** | Google | Latest reasoning model from Google | Recommended, New |
+| **Mistral Voxtral Small** | Mistral | Enhancement of Mistral Small 3 | Recommended, New |
+| **NVIDIA Nemotron Nano 12B** | NVIDIA | 12B parameter open multimodal reasoning | Recommended, New |
+
+<Tip>
+Not sure which to pick? Start with **Auto Routing** and let us choose the best model for each request!
+</Tip>
+
+<AccordionGroup>
+  <Accordion title="Advanced: Understanding Model Settings" icon="gear">
+    For power users who want fine-grained control over model behavior:
+
+    - **Temperature**: Controls how creative vs. consistent your AI is (0.0 = same answer every time, 1.0 = maximum creativity)
+    - **Max Tokens**: Limits how long responses can be (shorter = faster and cheaper, longer = more detailed)
+    - **Top P**: Another way to control variety in responses (most users can ignore this)
+
+    These settings are available in the Model tab after selecting a model.
+  </Accordion>
+</AccordionGroup>
+
+## Check Your Progress
+
+A helpful checklist showing what your Lemonade needs to work properly.
+
+### Mandatory Requirements (3 items)
+
+Your Lemonade needs at minimum:
+- ✅ **Connected to a Model** - Select a model in the Model tab
+- ✅ **Has an Instruction** - Add instructions in the Instructions tab
+- ✅ **Has a Welcome message** - Set a welcome message in the Instructions tab
+
+### Optional Upgrades
+
+Enhance your Lemonade with:
+- 📄 Add files to enhance knowledge (and make it better than ChatGPT!)
+- 🔗 Add website or other links to fine tune your Lemonade
+
+## Set Up Instructions
+
+This is where you give your AI its personality and job description.
+
+### Welcome Message
+
+The first message sent when someone starts a chat.
+
+**Default:** "Hello {first_name}, how can I help you today?"
+
+<Note>
+Use `{first_name}` as a placeholder to automatically insert the user's first name!
+</Note>
+
+**Tips for good welcome messages:**
+- Be friendly and inviting
+- Briefly explain what the Lemonade can help with
+- Ask an open-ended question to start the conversation
+
+**Examples:**
+```text
+"Hi {first_name}! I'm your personal marketing assistant. What can I help you create today?"
+
+"Welcome! I'm here to answer your questions about our products. What would you like to know?"
+
+"Hey {first_name}! Ready to brainstorm some ideas? Let's get started!"
+```
+
+### Instructions
+
+This is where you give your AI its personality and job description. Think of it like hiring someone - you're writing their role and guidelines.
+
+<Note>
+Developers call this a "system prompt" - now you know the lingo!
+</Note>
+
+**Default:** "You are a helpful chatbot"
+
+**Tips for good instructions:**
+- Be specific about the Lemonade's role
+- Define its personality and tone
+- Set boundaries on topics
+- Include any specific knowledge or context
+
+**Example:**
+```text
+You are a customer support assistant for TechCorp, a software company.
+
+Your responsibilities:
+- Answer questions about our products
+- Help troubleshoot common issues
+- Guide users to relevant documentation
+- Escalate complex issues to human support
+
+Tone: Professional but friendly. Use simple language.
+
+Important: Never share pricing information. Direct pricing questions to sales@techcorp.com
+```
+
+## Add Your Knowledge
+
+Train your Lemonade with your own data to make it an expert in your domain.
+
+### Add Files
+
+Upload documents to give your Lemonade specific knowledge:
+
+- Click **"Add Files"**
+- Upload PDFs, Word docs, spreadsheets, etc.
+- Files are processed and indexed
+- Your Lemonade can reference this information
+
+**Supported formats:** PDF, DOCX, TXT, CSV, and more
+
+### Add Websites
+
+Teach your Lemonade from web content:
+
+- Click **"Add Websites"**
+- Enter any URL
+- The content is crawled and indexed
+- Great for product pages, FAQs, documentation
+
+### Integrations
+
+Connect external data sources:
+
+| Integration | Description |
+|-------------|-------------|
+| **Notion** | Connect your Notion workspace |
+| **Google Drive** | Connect your Google Drive files |
+
+Click on an integration and follow the prompts to connect.
+
+## Customize Identity
+
+Give your Lemonade its name, style, and personality.
+
+### Lemonade Name
+Give your Lemonade a memorable, descriptive name.
+
+### Brain (NEW!)
+Select which Brain context to use for this Lemonade.
+
+<Info>
+Brains are created in **Profile & Billing → Brain**. They let you share memory across multiple Lemonades.
+</Info>
+
+### Lemonade Description
+Add a brief description of what your Lemonade does.
+
+**Why it matters:**
+- Helps you remember what each Lemonade is for
+- Shown to users if you sell your Lemonade
+- Good for organization
+
+### Lemonade Style
+Choose a visual style/avatar for your Lemonade.
+
+- Select from preset styles
+- Upload a custom image
+- Affects how your Lemonade appears in cards and chats
+
+## Power Up with Add-Ons
+
+Enable powerful additional features to make your Lemonade even better.
+
+| Feature | Description | Default |
+|---------|-------------|---------|
+| **Enable Search** | Let your Lemonade search the internet for current information | Off |
+| **Enable File Upload** | Users can upload files during chat for analysis | On |
+| **Enable Image Upload** | Users can share images for your Lemonade to understand | On |
+| **Remember All Conversations** | Lemonade remembers all chats (persistent memory) | Off |
+| **Developer Mode** | Connect via API or Zapier for automation | Off |
+
+### Enable Search
+Turn this on if your Lemonade needs access to current information beyond its training data.
+
+### Enable File Upload
+Allows users to upload documents during a chat. Great for:
+- Document analysis
+- Data extraction
+- File-based Q&A
+
+### Enable Image Upload
+Allows users to share images. Your Lemonade can:
+- Describe images
+- Analyze visual content
+- Answer questions about images
+
+### Remember All Conversations
+When enabled, your Lemonade will remember all previous conversations.
+
+<Warning>
+This does NOT change your instructions - it only allows the Lemonade to recall what was discussed in previous chats.
+</Warning>
+
+### Developer Mode
+
+If you're a developer (or work with one), this lets you connect your Lemonade to other apps and build custom integrations.
+
+Not a developer? You can safely skip this!
+
+<AccordionGroup>
+  <Accordion title="What Developer Mode Enables" icon="code">
+    When you turn on Developer Mode, you get:
+
+    - **API Access**: Connect your Lemonade to custom applications
+    - **Zapier Integration**: Automate workflows with 5,000+ apps
+    - **Webhook Support**: Get notified when things happen
+    - **Custom Integrations**: Build your own tools using your Lemonade
+
+    Perfect for connecting to your own website, building automation workflows, or integrating with your existing software.
+  </Accordion>
+</AccordionGroup>
+
+## Share Your Lemonade
+
+You've built something amazing - now let's get it out into the world! Here are your options for sharing your Lemonade.
+
+### Deploy as an Employee via Email
+
+Email your Lemonade directly from your inbox - like having an AI assistant you can email anytime.
+
+**Setup:**
+1. Add a custom email address (e.g., `support@ai.launchlemonade.app`)
+2. Click **COPY EMAIL**, **SAVE TO GMAIL**, or **SAVE TO OUTLOOK**
+3. Email from your registered address to start chatting
+
+<Note>
+For security, only emails from your registered email address will be processed.
+</Note>
+
+### Deploy as a ChatBot on your website
+
+Embed your Lemonade as a chat widget on any website.
+
+**Pricing:** $29/mo (Embed Mix)
+
+**Steps:**
+1. Click **"CREATE EMBED MIX"**
+2. Customize your branding
+3. Get your embed code
+4. Add to your website
+
+### Deploy on your Domain to sell
+
+Monetize your Lemonade with subscriptions - turn your AI into a business.
+
+**Pricing:** $49/mo + 10% transaction fees
+
+**Steps:**
+1. Click **"CREATE SUBSCRIPTION MIX"**
+2. Set up your pricing and domain
+3. Test before going live
+4. Start earning!
+
+## Test Your Creation
+
+Click **"Run Lemonade"** in the top right to test your creation.
+
+This opens a chat interface where you can:
+- Test your welcome message
+- Try different questions
+- Verify knowledge is working
+- Check the tone and behavior
+
+<Tip>
+Always test thoroughly before deploying! Try edge cases and unexpected questions.
+</Tip>
+
+## Saving Your Work
+
+Good news: your changes save automatically as you work. You'll see a quick confirmation when everything's saved.
+
+Click the back arrow (←) when you're ready to return to your dashboard.
+
+## Deleting a Lemonade
+
+To delete a Lemonade:
+1. Click the **trash icon** (🗑️) next to the Lemonade name
+2. Confirm deletion
+
+<Warning>
+Deletion is permanent and cannot be undone!
+</Warning>
+
+## What's Next?
+
+Now that you know your way around the Editor, here's how to take your Lemonade to the next level:
+
+<CardGroup cols={2}>
+  <Card title="Deploy Your Lemonade" icon="rocket" href="/deployment">
+    Share your AI tool with the world via email, website, or custom domain
+  </Card>
+  <Card title="Add Knowledge Files" icon="brain" href="/knowledge">
+    Upload documents and websites to make your Lemonade an expert
+  </Card>
+  <Card title="Explore AI Models" icon="sparkles" href="/models">
+    Deep dive into choosing the perfect model for your needs
+  </Card>
+  <Card title="Set Up Memory" icon="lightbulb" href="/Memory">
+    Give your Lemonades persistent memory with the Brain feature
+  </Card>
+</CardGroup>
