@@ -1,0 +1,89 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "LaunchLemonade",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#FCD34D",
+    "light": "#FEF3C7",
+    "dark": "#F59E0B",
+    "anchors": {
+      "from": "#F59E0B",
+      "to": "#FCD34D"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:hello@launchlemonade.app"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Launch App",
+    "url": "https://sip.launchlemonade.app"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-doc"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Community",
+      "icon": "whatsapp",
+      "url": "https://chat.whatsapp.com/KeeA2yriNoQ8rDqzhIMP2u"
+    },
+    {
+      "name": "YouTube",
+      "icon": "youtube",
+      "url": "https://www.youtube.com/@launchlemonade"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "navigation"
+      ]
+    },
+    {
+      "group": "Build Your Lemonade",
+      "pages": [
+        "lemonade-types",
+        "lemonade-editor",
+        "knowledge"
+      ]
+    },
+    {
+      "group": "Deploy & Share",
+      "pages": [
+        "deployment",
+        "Whitelabelling",
+        "templates"
+      ]
+    },
+    {
+      "group": "Features",
+      "pages": [
+        "Memory",
+        "history"
+      ]
+    },
+    {
+      "group": "Developers",
+      "pages": [
+        "api-doc"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "youtube": "https://www.youtube.com/@launchlemonade",
+    "linkedin": "https://www.linkedin.com/company/launchlemonade"
+  }
+}
