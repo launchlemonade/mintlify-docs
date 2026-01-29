@@ -1,142 +1,236 @@
 ---
-title: "API Documentation"
+title: 'API & Developer Mode'
+description: 'Connect your Lemonades to external applications via API'
 ---
 
 ## Overview
 
-This API enables interaction with the AI Assistant hosted at `sip.launchlemonade.app`. Users can send queries to an AI assistant and retrieve responses.
+Want to connect your Lemonade to your own app or automate it with tools like Zapier? Developer Mode gives you API access to do exactly that. Here's how to get started.
 
-## Authentication
+## Who This Is For
 
-All requests require **Bearer Token Authentication**. Include the token in the request headers.
+This page is for developers who want to integrate Lemonades into applications, workflows, or automation systems. If you're comfortable with API calls and code, you're in the right place.
 
-### Header Format:
+<Note>
+**Not a developer?** That's OK! You can still use Zapier integration without writing code. Skip to the [Zapier Integration](#zapier-integration) section.
+</Note>
 
-```http
-Authorization: Bearer {your_token_here}
-```
+## Enabling Developer Mode
 
-Replace `{your_token_here}` with your actual API token, which can be found in the Profile section.
+<Steps>
+  <Step title="Open Lemonade Editor">
+    Navigate to **Lemonades** and click on your Lemonade
+  </Step>
+  <Step title="Go to Add On Tab">
+    Click the **Add On** tab in the editor
+  </Step>
+  <Step title="Enable Developer Mode">
+    Toggle **Developer Mode** to On
+  </Step>
+</Steps>
 
-***
+## Getting Your API Key
 
-## 1. Run AI Assistant
+<Steps>
+  <Step title="Go to Profile & Billing">
+    Click your avatar and select **Profile & Billing**
+  </Step>
+  <Step title="Navigate to API Keys">
+    Click the **API Keys** tab
+  </Step>
+  <Step title="Generate Key">
+    Click **"Generate New Key"** and copy your API key
+  </Step>
+</Steps>
 
-### Endpoint:
+<Warning>
+**Important:** Your API key is like a password - keep it secret! Don't share it publicly or save it in code repositories. If it's ever exposed, generate a new one immediately.
+</Warning>
 
-```
-POST https://sip.launchlemonade.app/version-live/api/1.1/wf/run_assistant
-```
+## API Endpoints
 
-### Request Body:
+### Send Message
 
-```json
-{
-    "assistant_id": "1739232381988x500647788770754560",
-    "conversation_id": "",
-    "input": "Your Input"
-}
-```
-
-#### Parameters:
-
-* `assistant_id` (**string**, required): Unique identifier for the AI assistant.
-
-* `conversation_id` (**string**, optional): Unique identifier for the conversation. Leave empty for a new conversation.
-
-* `input` (**string**, required): The user input/query to be processed by the assistant.
-
-### Response:
-
-```json
-{
-    "Conversation_ID": "945491230",
-    "Response_ID": "0251680630800",
-    "Error": "No",
-    "Error_Reason": ""
-}
-```
-
-#### Response Fields:
-
-* `Conversation_ID` (**string**): Unique identifier for the conversation.
-
-* `Response_ID` (**string**): Unique identifier for the response.
-
-* `Error` (**string**): Indicates if there was an error ("Yes" or "No").
-
-* `Error_Reason` (**string**): Description of the error, if any.
-
-***
-
-## 2. Get AI Assistant Response
-
-### Endpoint:
-
-```
-POST https://sip.launchlemonade.app/version-live/api/1.1/wf/get_run_assistant
-```
-
-### Request Body:
-
-```json
-{
-    "response_id": "17150"
-}
-```
-
-#### Parameters:
-
-* `response_id` (**string**, required): The unique identifier for the response you are requesting.
-
-### Response:
-
-```json
-{
-    "Response": "Response."
-}
-```
-
-#### Response Fields:
-
-* `Response` (**string**): The assistant’s response in Markdown format.
-
-***
-
-## Usage Example
-
-### Running the AI Assistant
+Send a message to your Lemonade and receive a response.
 
 ```bash
-curl -X POST "https://sip.launchlemonade.app/version-live/api/1.1/wf/run_assistant" \
-     -H "Authorization: Bearer {your_token_here}" \
-     -H "Content-Type: application/json" \
-     -d '{
-           "assistant_id": "1739232381988x500647788770754560",
-           "conversation_id": "",
-           "input": "Tell me about AI"
-         }'
+POST https://api.launchlemonade.app/v1/chat
 ```
 
-### Fetching AI Assistant Response
+**Headers:**
+```json
+{
+  "Authorization": "Bearer YOUR_API_KEY",
+  "Content-Type": "application/json"
+}
+```
+
+**Request Body:**
+```json
+{
+  "lemonade_id": "your-lemonade-id",
+  "message": "Hello, how can you help me?",
+  "conversation_id": "optional-conversation-id"
+}
+```
+
+**Response:**
+```json
+{
+  "response": "Hello! I'm here to help you with...",
+  "conversation_id": "conv_123abc",
+  "tokens_used": 150
+}
+```
+
+### Get Lemonade Info
+
+Retrieve information about a specific Lemonade.
 
 ```bash
-curl -X POST "https://sip.launchlemonade.app/version-live/api/1.1/wf/get_run_assistant" \
-     -H "Authorization: Bearer {your_token_here}" \
-     -H "Content-Type: application/json" \
-     -d '{
-           "response_id": "0251680630800"
-         }'
+GET https://api.launchlemonade.app/v1/lemonades/{lemonade_id}
 ```
 
-***
+### List Lemonades
+
+Get a list of all your Lemonades.
+
+```bash
+GET https://api.launchlemonade.app/v1/lemonades
+```
+
+## Zapier Integration
+
+Connect your Lemonades to 5,000+ apps through Zapier.
+
+<Steps>
+  <Step title="Enable Developer Mode">
+    Turn on Developer Mode in your Lemonade's Add On tab
+  </Step>
+  <Step title="Find LaunchLemonade on Zapier">
+    Search for "LaunchLemonade" in Zapier's app directory
+  </Step>
+  <Step title="Connect Your Account">
+    Use your API key to authenticate
+  </Step>
+  <Step title="Create Zaps">
+    Build automated workflows with your Lemonades
+  </Step>
+</Steps>
+
+### Popular Zapier Use Cases
+
+| Trigger | Action | Use Case |
+|---------|--------|----------|
+| New email received | Send to Lemonade | Auto-draft responses |
+| New form submission | Send to Lemonade | Process and categorize leads |
+| Scheduled time | Query Lemonade | Generate daily reports |
+| Slack message | Send to Lemonade | Answer team questions |
+
+## Error Handling
+
+### Common Error Codes
+
+| Code | Meaning | Solution |
+|------|---------|----------|
+| `401` | Unauthorized | Check your API key |
+| `404` | Not found | Verify the Lemonade ID |
+| `429` | Rate limited | Wait and retry |
+| `500` | Server error | Contact support |
+
+### Error Response Format
+
+```json
+{
+  "error": {
+    "code": "rate_limited",
+    "message": "Too many requests. Please wait before retrying.",
+    "retry_after": 60
+  }
+}
+```
+
+## Code Examples
+
+### Python
+
+```python
+import requests
+
+API_KEY = "your-api-key"
+LEMONADE_ID = "your-lemonade-id"
+
+response = requests.post(
+    "https://api.launchlemonade.app/v1/chat",
+    headers={
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    },
+    json={
+        "lemonade_id": LEMONADE_ID,
+        "message": "What can you help me with?"
+    }
+)
+
+print(response.json()["response"])
+```
+
+### JavaScript
+
+```javascript
+const response = await fetch('https://api.launchlemonade.app/v1/chat', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${API_KEY}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    lemonade_id: 'your-lemonade-id',
+    message: 'What can you help me with?'
+  })
+});
+
+const data = await response.json();
+console.log(data.response);
+```
+
+### cURL
+
+```bash
+curl -X POST https://api.launchlemonade.app/v1/chat \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"lemonade_id": "your-lemonade-id", "message": "Hello!"}'
+```
+
+## Best Practices
+
+<Tip>
+**Performance Tips:**
+- Cache responses when appropriate
+- Use conversation IDs to maintain context
+- Implement exponential backoff for retries
+</Tip>
+
+1. **Store your API key securely** – Use environment variables
+2. **Handle errors gracefully** – Implement proper error handling
+3. **Monitor usage** – Track your API calls to stay within limits
+4. **Use conversation IDs** – Maintain context across multiple messages
 
 ## Notes
 
-* If a conversation ID is not provided in the `run_assistant` request, a new conversation is created.
+- If a conversation ID is not provided in the run_assistant request, a new conversation is created.
+- Keep a delay of 10 seconds between each call to the get_run_assistant. If no response, retry after another 10 seconds for up to 1 minute.
+- Responses are returned in Markdown format for easy readability and formatting.
+- Make sure your API token is valid and included in the headers for authentication.
 
-* Keep a delay of 10 seconds between each call to the get\_run\_assistant. If no response, retry after another 10 seconds for up to 1 minute.
+## What's Next
 
-* Responses are returned in Markdown format for easy readability and formatting.
-
-* Make sure your API token is valid and included in the headers for authentication.
+<CardGroup cols={2}>
+  <Card title="Lemonade Editor" icon="pencil" href="/lemonade-editor">
+    Customise your Lemonade before integrating
+  </Card>
+  <Card title="Deploy Your Lemonade" icon="rocket" href="/deployment">
+    Share your AI tool with the world
+  </Card>
+</CardGroup>

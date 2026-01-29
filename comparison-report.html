@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Comparison: Local Repo vs Live Site</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f8f9fa;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e9ecef;
+            color: #495057;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.75rem;
+            color: #212529;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .summary-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .summary-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .comparison-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .comparison-card.local {
+            border-left: 4px solid #22c55e;
+        }
+
+        .comparison-card.live {
+            border-left: 4px solid #ef4444;
+        }
+
+        .comparison-card h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-card.local h4 {
+            color: #16a34a;
+        }
+
+        .comparison-card.live h4 {
+            color: #dc2626;
+        }
+
+        .comparison-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f1f3f4;
+            font-size: 0.95rem;
+        }
+
+        .comparison-card li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-card li strong {
+            color: #374151;
+        }
+
+        .winner-badge {
+            display: inline-block;
+            background: #22c55e;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .winner-badge.missing {
+            background: #f59e0b;
+        }
+
+        .page-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .page-header h3 {
+            margin: 0;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-pill.better {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-pill.missing {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-pill.same {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .key-differences {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .key-differences h3 {
+            color: #166534;
+            margin-top: 0;
+        }
+
+        .key-differences ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .key-differences li {
+            margin: 0.5rem 0;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .conclusion h2 {
+            border: none;
+            margin-top: 0;
+            color: #1e40af;
+        }
+
+        .conclusion p {
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .highlight {
+            background: #fef9c3;
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+        }
+
+        .error-tag {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 0.125rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #22c55e;
+        }
+
+        .stat-card .label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Documentation Comparison</h1>
+        <p style="font-size: 1.25rem; color: #6b7280; margin-bottom: 2rem;">Local Repo vs Live Site (docs.launchlemonade.app)</p>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">13</div>
+                <div class="label">Local Pages</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">16</div>
+                <div class="label">Screenshots Added</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">6</div>
+                <div class="label">Pages Missing on Live</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">12/13</div>
+                <div class="label">What's Next Sections</div>
+            </div>
+        </div>
+
+        <!-- Summary Table -->
+        <div class="summary-card">
+            <h2 style="margin-top: 0; border: none;">Quick Summary</h2>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Local Repo (Your Version)</th>
+                        <th>Live Site</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pages</strong></td>
+                        <td>13 MDX files, all complete</td>
+                        <td>Several pages return 404</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tone</strong></td>
+                        <td>Warm, encouraging, Grade 7-8 readability</td>
+                        <td>More technical, procedural</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Structure</strong></td>
+                        <td>Benefits-first, progressive disclosure</td>
+                        <td>Feature-first, dense</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Visual Support</strong></td>
+                        <td>16 screenshots embedded</td>
+                        <td>Minimal/no screenshots</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Navigation</strong></td>
+                        <td>What's Next CardGroups on 12/13 pages</td>
+                        <td>Basic links only</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Page-by-Page Comparison</h2>
+
+        <!-- Page 1: Introduction -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>1. Introduction</h3>
+                <span class="status-pill better">Local Better</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "Ready to build your own AI tools without writing code?"</li>
+                        <li><strong>Structure:</strong> CardGroup showing 6 capabilities visually</li>
+                        <li><strong>Quick Nav:</strong> Goal-based table ("I'm new", "I want to create...")</li>
+                        <li><strong>Tone:</strong> Conversational, "no technical skills needed"</li>
+                        <li><strong>Video:</strong> Embedded YouTube tutorial</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> Lists capabilities (develop, reduce, leverage, build, enable)</li>
+                        <li><strong>Structure:</strong> Bulleted capability list</li>
+                        <li><strong>Quick Nav:</strong> Similar but less warm</li>
+                        <li><strong>Tone:</strong> More formal, "empowers you to"</li>
+                        <li><strong>Video:</strong> References YouTube</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2: Quickstart -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>2. Quickstart</h3>
+                <span class="status-pill better">Local Better</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Time Promise:</strong> "In the next 5 minutes"</li>
+                        <li><strong>Screenshots:</strong> 5 screenshots showing each step</li>
+                        <li><strong>Step Structure:</strong> Numbered with images</li>
+                        <li><strong>Lemonade Types:</strong> Friendly descriptions ("Start here!", "Don't worry")</li>
+                        <li><strong>Models:</strong> Shows Free vs Recommended with specific models</li>
+                        <li><strong>What's Next:</strong> CardGroup with 4 options</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><strong>Time Promise:</strong> Not explicit</li>
+                        <li><strong>Screenshots:</strong> None visible</li>
+                        <li><strong>Step Structure:</strong> Text-heavy numbered steps</li>
+                        <li><strong>Lemonade Types:</strong> Lists options but less reassuring</li>
+                        <li><strong>Models:</strong> Lists "20+ models" generically</li>
+                        <li><strong>What's Next:</strong> "Three expansion paths"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Templates -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>3. Templates/Marketplace</h3>
+                <span class="status-pill better">Local Better</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "Not Sure Where to Start? Browse 80+ ready-made Lemonades"</li>
+                        <li><strong>Structure:</strong> Steps components, category tables</li>
+                        <li><strong>Featured:</strong> Customer Support Bot, Content Creator, Sales Assistant, Meeting Summarizer</li>
+                        <li><strong>Publishing:</strong> How to submit your own template</li>
+                        <li><strong>What's Next:</strong> CardGroup navigation</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> Marketing-focused with prompt library</li>
+                        <li><strong>Structure:</strong> Accordion with LinkedIn Writer example</li>
+                        <li><strong>Featured:</strong> LinkedIn Writer template with specific prompt</li>
+                        <li><strong>Publishing:</strong> Not covered</li>
+                        <li><strong>What's Next:</strong> Not visible</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 4: Knowledge -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>4. Knowledge</h3>
+                <span class="status-pill better">Local Better</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "Want your Lemonade to know YOUR business?" (benefit-first)</li>
+                        <li><strong>Screenshot:</strong> Knowledge tab overview</li>
+                        <li><strong>Three Ways:</strong> Files, Websites, Integrations with detailed steps</li>
+                        <li><strong>File Types Table:</strong> Format, Extension, Best For</li>
+                        <li><strong>Knowledge vs Brain:</strong> Clear comparison table</li>
+                        <li><strong>Best Practices:</strong> Extensive tips, "What NOT to Upload"</li>
+                        <li><strong>Troubleshooting:</strong> File issues, crawl issues, knowledge not working</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "Upload documents and extracting webpage content" (feature-first)</li>
+                        <li><strong>Screenshot:</strong> None</li>
+                        <li><strong>Three Ways:</strong> Similar but less visual</li>
+                        <li><strong>File Types:</strong> Lists supported formats</li>
+                        <li><strong>Comparison:</strong> Not visible</li>
+                        <li><strong>Best Practices:</strong> Brief recommendations</li>
+                        <li><strong>Troubleshooting:</strong> Not visible</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 5: Lemonade Editor -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>5. Lemonade Editor</h3>
+                <span class="status-pill missing">Live Page Missing (404)</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Screenshots:</strong> 6 screenshots (Model, Instructions, Knowledge, Add-Ons, Deploy tabs)</li>
+                        <li><strong>Structure:</strong> Each tab explained with visual</li>
+                        <li><strong>Model Settings:</strong> Accordion for advanced settings (Temperature, Tokens)</li>
+                        <li><strong>Deploy Options:</strong> Email, Embed, Subscription explained</li>
+                        <li><strong>What's Next:</strong> CardGroup with 4 options</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><span class="error-tag">404 Error - Page Not Found</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 6: Deployment -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>6. Deployment</h3>
+                <span class="status-pill missing">Live Page Missing (404)</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "You've built something amazing - now let's put it to work!"</li>
+                        <li><strong>Screenshot:</strong> Deploy tab overview</li>
+                        <li><strong>Three Options:</strong> Email (free), Embed ($29), Subscription ($49) with comparison</li>
+                        <li><strong>Embed Code:</strong> Accordion with actual code example</li>
+                        <li><strong>Troubleshooting:</strong> Email, Embed, Payment issues</li>
+                        <li><strong>What's Next:</strong> CardGroup</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><span class="error-tag">404 Error - Page Not Found</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 7: Memory -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>7. Memory</h3>
+                <span class="status-pill better">Local Better</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "Your LaunchLemonade Lemonades get smarter..." (benefit-first)</li>
+                        <li><strong>Screenshots:</strong> 2 screenshots (Brain tab, Lemonade Details)</li>
+                        <li><strong>Brain vs Knowledge:</strong> Clear table explaining difference</li>
+                        <li><strong>Example Entries:</strong> Specific code blocks with examples</li>
+                        <li><strong>Pro Tips:</strong> AccordionGroup with 6 tips</li>
+                        <li><strong>Quick Start Checklist:</strong> 4-step Steps component</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "Configure memory features" (feature-first)</li>
+                        <li><strong>Screenshots:</strong> None</li>
+                        <li><strong>Comparison:</strong> Mentions three methods</li>
+                        <li><strong>Examples:</strong> Category list</li>
+                        <li><strong>Best Practices:</strong> Brief bullet points</li>
+                        <li><strong>Checklist:</strong> Not structured</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 8: Models -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>8. Models</h3>
+                <span class="status-pill missing">Live Page Missing (404)</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Screenshot:</strong> Model tab overview</li>
+                        <li><strong>Free vs Recommended:</strong> Clear tables</li>
+                        <li><strong>"What Each Provider is Good At":</strong> Claude, GPT, Gemini, Grok, Mistral, Kimi, Nemotron</li>
+                        <li><strong>Comparison Tables:</strong> By Capability, Speed, Cost</li>
+                        <li><strong>Advanced Settings:</strong> Accordion for Temperature, Response Length</li>
+                        <li><strong>What's Next:</strong> CardGroup with 4 options</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><span class="error-tag">404 Error - Page Not Found</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 9: History -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>9. History</h3>
+                <span class="status-pill missing">Live Page Missing (404)</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "Ever wish you could pick up a conversation where you left off?"</li>
+                        <li><strong>History vs Memory:</strong> Clear comparison table</li>
+                        <li><strong>Features:</strong> Search, continue, export conversations</li>
+                        <li><strong>What's Next:</strong> CardGroup</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><span class="error-tag">404 Error - Page Not Found</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 10: Lemonade Types -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>10. Lemonade Types</h3>
+                <span class="status-pill missing">Live Page Missing (404)</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Structure:</strong> 5 types with Card components, tables, tips</li>
+                        <li><strong>Types:</strong> Chat, Voice, Flows, Agents, Image</li>
+                        <li><strong>Comparison Chart:</strong> Type, Best For, Getting Started, How It Works</li>
+                        <li><strong>Quick Decision Guide:</strong> "If you want to... Choose" table</li>
+                        <li><strong>What's Next:</strong> CardGroup with 4 options</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><span class="error-tag">404 Error - Page Not Found</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 11: Whitelabelling -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>11. Whitelabelling (Mixes)</h3>
+                <span class="status-pill better">Local Better</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "You've built a Lemonade that works perfectly. Now what?"</li>
+                        <li><strong>Screenshot:</strong> Mixes page overview</li>
+                        <li><strong>Mix Types:</strong> Embed ($29), Subscription ($49) with features</li>
+                        <li><strong>Step-by-Step:</strong> From Mixes page AND from Deploy tab</li>
+                        <li><strong>Pro Tips:</strong> 4 specific recommendations</li>
+                        <li><strong>What's Next:</strong> CardGroup</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "Monetize AI ideas"</li>
+                        <li><strong>Screenshot:</strong> None</li>
+                        <li><strong>Mix Types:</strong> Business Mix mentioned</li>
+                        <li><strong>Steps:</strong> Brief overview</li>
+                        <li><strong>Tips:</strong> Not visible</li>
+                        <li><strong>What's Next:</strong> Not visible</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 12: API Doc -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>12. API Documentation</h3>
+                <span class="status-pill better">Local Better</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> "Not a developer? That's OK!" with skip-to-Zapier note</li>
+                        <li><strong>Structure:</strong> Enabling Dev Mode &rarr; API Key &rarr; Endpoints &rarr; Zapier &rarr; Code Examples</li>
+                        <li><strong>Code Examples:</strong> Python, JavaScript, cURL</li>
+                        <li><strong>Zapier Section:</strong> Dedicated integration guide</li>
+                        <li><strong>Rate Limits:</strong> Free/Pro/Enterprise table</li>
+                        <li><strong>Error Handling:</strong> Table + response format</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><strong>Lead:</strong> Technical authentication requirements</li>
+                        <li><strong>Structure:</strong> Endpoints and curl examples</li>
+                        <li><strong>Code Examples:</strong> cURL only</li>
+                        <li><strong>Zapier:</strong> Not visible</li>
+                        <li><strong>Rate Limits:</strong> Not visible</li>
+                        <li><strong>Error Handling:</strong> Not visible</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 13: Navigation -->
+        <div class="page-section">
+            <div class="page-header">
+                <h3>13. Navigation Guide</h3>
+                <span class="status-pill missing">Live Page Missing</span>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card local">
+                    <h4>Local Repo</h4>
+                    <ul>
+                        <li><strong>Structure:</strong> Full app navigation guide</li>
+                        <li><strong>"Your First 3 Actions":</strong> Onboarding checklist for new users</li>
+                        <li><strong>Main Navigation:</strong> Lemonades, Mixes, Marketplace, History, Profile explained</li>
+                        <li><strong>7 Editor Tabs:</strong> All explained</li>
+                        <li><strong>What's Next:</strong> CardGroup</li>
+                    </ul>
+                </div>
+                <div class="comparison-card live">
+                    <h4>Live Site</h4>
+                    <ul>
+                        <li><em>No equivalent page exists</em></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Differences -->
+        <div class="key-differences">
+            <h3>What Your Local Repo Has That Live Site Lacks</h3>
+            <ul>
+                <li><strong>16 embedded screenshots</strong> showing actual UI</li>
+                <li><strong>What's Next CardGroups</strong> on 12/13 pages for clear navigation</li>
+                <li><strong>Progressive disclosure</strong> (Accordions for advanced content)</li>
+                <li><strong>Benefits-first structure</strong> on every page</li>
+                <li><strong>Encouraging language</strong> ("Don't worry", "You did it!")</li>
+                <li><strong>Comparison tables</strong> (Brain vs Knowledge, History vs Memory, etc.)</li>
+                <li><strong>Troubleshooting sections</strong> on key pages</li>
+                <li><strong>Multiple code examples</strong> (Python, JS, cURL vs just cURL)</li>
+                <li><strong>6 pages that don't exist on live</strong> (lemonade-editor, deployment, models, history, lemonade-types, navigation)</li>
+            </ul>
+
+            <h3 style="margin-top: 1.5rem;">Live Site Strengths</h3>
+            <ul>
+                <li>Some pages have specific prompt examples (LinkedIn Writer template)</li>
+                <li>Direct links to llms.txt index</li>
+                <li>References to Calendly consultations</li>
+            </ul>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="conclusion">
+            <h2>Conclusion</h2>
+            <p><strong>The local repo is significantly more polished than the live site.</strong></p>
+            <p>The live site appears to be missing several pages entirely (404 errors), has no screenshots, and uses more technical/procedural language.</p>
+            <p>Your v1 milestone work has created documentation that is:</p>
+            <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                <li><strong>More visual</strong> (screenshots)</li>
+                <li><strong>More navigable</strong> (What's Next sections)</li>
+                <li><strong>More approachable</strong> (benefits-first, plain language)</li>
+                <li><strong>More complete</strong> (pages that don't exist on live)</li>
+                <li><strong>Better structured</strong> (progressive disclosure, comparison tables)</li>
+            </ul>
+            <p style="font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; color: #1e40af;">
+                The live site needs to be updated with your local changes. The gap between the two is substantial.
+            </p>
+        </div>
+
+        <p style="text-align: center; color: #9ca3af; margin-top: 2rem; font-size: 0.875rem;">
+            Generated on January 29, 2026
+        </p>
+    </div>
+</body>
+</html>

@@ -1,101 +1,217 @@
 ---
-title: "How to build your Lemonade's Knowledge"
-description: "Uploading Knowledge (Files & Documents)
-What is the Knowledge Base?
-The Knowledge Base allows you to upload documents or extract information from webpages to enhance your AI copilot's understanding. You can add PDFs, text files, and scrape single web pages to provide context for better responses.
-"
+title: 'Knowledge & Training'
+description: 'Train your Lemonade with files, websites, and integrations'
 ---
 
-# LaunchLemonade Knowledge Base Documentation
+## Why Knowledge Matters
 
-## Uploading Knowledge (Files & Documents)
+Want your Lemonade to know YOUR business? The Knowledge tab is where you share your documents, websites, and data - so your AI can give answers specific to you, not generic internet responses.
 
-### What is the Knowledge Base?
+Good knowledge makes your Lemonade smarter, more accurate, and genuinely helpful for your unique needs.
 
-The Knowledge Base allows you to upload documents or extract information from webpages to enhance your AI copilot's understanding. You can add PDFs, text files, JSON scripts, and scrape single web pages to provide context for better responses.
+## Accessing Knowledge Settings
 
-***
+<Steps>
+  <Step title="Open Lemonade Editor">
+    Navigate to **Lemonades** and click on your Lemonade
+  </Step>
+  <Step title="Go to Knowledge Tab">
+    Click the **Knowledge** tab in the editor
+  </Step>
+</Steps>
 
-## Uploading Files to the Knowledge Base
+<img
+  src="/images/knowledge/knowledge-tab-01-overview.png"
+  alt="Knowledge tab showing Add Files, Add Websites, and integration options"
+  style={{maxWidth: "600px"}}
+/>
 
-### Supported File Types:
+## Three Ways to Add Knowledge
 
-* **PDF (.pdf)**
+### 1. Add Files
 
-* **Text files (.txt, .md)**
+Upload documents directly to train your Lemonade.
 
-* **Microsoft Word (.docx)**
+<Steps>
+  <Step title="Click Add Files">
+    Click the **"Add Files"** button
+  </Step>
+  <Step title="Select Documents">
+    Choose files from your computer
+  </Step>
+  <Step title="Wait for Processing">
+    Files are automatically processed and ready to use
+  </Step>
+</Steps>
 
-* **CSV & Excel (.csv, .xlsx)** (For structured data)
+**Supported File Types:**
 
-* **JSON files (.json)** (For structured scripting and data storage)
+| Format | Extension | Best For |
+|--------|-----------|----------|
+| PDF | .pdf | Manuals, reports, ebooks |
+| Word | .docx | Documents, SOPs |
+| Text | .txt | Simple text content |
+| CSV | .csv | Data tables, lists |
+| Excel | .xlsx | Spreadsheets |
 
-### How to Upload Files:
+<Tip>
+Break large documents into smaller, focused files for better results. A 100-page manual should be split into logical sections.
+</Tip>
 
-1. **Go to Your Lemonade and select "Knowledge" tab**: Navigate to the lemonade want to add knowledge to.
+### 2. Add Websites
 
-2. **Click on "Knowledge"**: This option appears in the customization menu.
+Crawl and learn from web content.
 
-3. **Select "Add File"**: Choose from your local storage. Unlimited amount of files,   50MB each file.
+<Steps>
+  <Step title="Click Add Websites">
+    Click the **"Add Websites"** button
+  </Step>
+  <Step title="Enter URL">
+    Paste the website URL you want to crawl
+  </Step>
+  <Step title="Configure Crawl">
+    Choose how many pages to crawl
+  </Step>
+  <Step title="Start Crawl">
+    Click to begin. Content is processed automatically
+  </Step>
+</Steps>
 
-4. **Confirm Upload**: The document(s) will be processed and indexed.
+**Great for:**
+- Product documentation
+- FAQ pages
+- Help center articles
+- Blog content
+- Company information
 
-**Best Practices:**
+<Warning>
+Only crawl websites you own or have permission to use. When in doubt, stick to your own content!
+</Warning>
 
-* **Keep Files Concise**: Large documents may slow processing time.
+### 3. Integrations
 
-* **Use Structured Formats**: Headings, bullet points, and clear formatting improve AI comprehension.
+Connect external data sources directly.
 
-* **Regularly Update Knowledge**: Upload new versions if information changes.
+| Integration | Description | Use Case |
+|-------------|-------------|----------|
+| **Notion** | Connect your Notion workspace | Team wikis, documentation |
+| **Google Drive** | Connect your Drive files | Shared documents, spreadsheets |
 
-***
+<AccordionGroup>
+  <Accordion title="How to Connect Integrations">
+    <Steps>
+      <Step title="Choose Integration">
+        Click on the integration you want to connect
+      </Step>
+      <Step title="Authorize Access">
+        Follow the prompts to connect your account (you'll see a familiar "Sign in with Google" or "Authorize" screen)
+      </Step>
+      <Step title="Select Content">
+        Choose which pages/files to sync
+      </Step>
+    </Steps>
+  </Accordion>
+</AccordionGroup>
 
-## Using the Web Scraping Tool (Scrapes One Page at a Time)
+## Knowledge vs Brain
 
-### What Does the Web Scraping Tool Do?
+Understanding the difference:
 
-This feature allows you to extract text from a **single webpage** at a time and add it to your lemonade’s knowledge.
+| Feature | Knowledge (Tab 4) | Brain (Profile & Billing) |
+|---------|-------------------|---------------------------|
+| **Scope** | This Lemonade only | All your Lemonades |
+| **Content** | Documents, websites | Persistent memory |
+| **Use Case** | Domain expertise | Remembered facts |
+| **Updates** | Manual uploads | Automatic learning |
 
-### How to Scrape a Webpage:
+<Note>
+Use **Knowledge** for specific expertise (product docs, FAQs). Use **Brain** for things that should be remembered across all conversations. Learn more in our [Memory guide](/Memory).
+</Note>
 
-1. **Go to "Knowledge" Tab in Lemonade**&#x20;
+## For Best Results
 
-2. **Select "Add website"**
+**Start small** - A few focused documents work better than uploading everything at once. You can always add more later!
 
-3. **Enter the URL of the Page You Want to Scrape.**
+**Keep it fresh** - Update files when information changes. Old knowledge can lead to outdated answers.
 
-4. **Click "Extract."** The tool will fetch the text from the page.
+**Remove duplicates** - Don't upload the same content multiple ways. Your AI will get confused if it sees contradicting information.
 
-5. **Review & Save.** Edit the extracted text if necessary, then save it to your copilot's knowledge base.
+**Use clear names** - Name files descriptively so you know what's uploaded at a glance.
 
-**Best Practices:**
+**Quality over quantity** - 10 well-organized pages beat 100 poorly structured ones.
 
-* **Scrape Only Public Pages**: Avoid private or login-protected content.
+### Content Quality Tips
 
-* **Check Content Relevance**: Ensure the page content aligns with your copilot’s needs.
+- **Clean formatting** – Remove unnecessary headers/footers before uploading
+- **Structured content** – Use headings and sections to help your AI understand the organization
+- **Accurate information** – Verify facts before uploading
+- **Plain language** – Avoid unnecessary jargon (unless your use case requires it)
 
-* **Combine With Other Knowledge Sources**: Enhance results by supplementing web scrapes with PDFs, JSON files, or structured data.
+### What NOT to Upload
 
-* **Update Scrapes Regularly**: Websites change; re-scrape periodically for fresh data.
+- Sensitive personal data (unless necessary and secure)
+- Copyrighted content you don't have rights to
+- Outdated information
+- Duplicate content in different formats
 
-***
+## Managing Knowledge
 
-## Troubleshooting & FAQs
+### View Uploaded Content
 
-### **File Upload Issues:**
+See all your uploaded files and websites in the Knowledge tab:
+- File names and types
+- Upload dates
+- Processing status
 
-* **File Not Uploading?** Check if it's a supported format.
+### Delete Content
 
-* **Large File?** Try splitting it into smaller documents. You can upload unlimited amount of files at 50MB each file.
+Remove outdated or irrelevant knowledge:
+1. Find the file/website in your list
+2. Click the delete icon
+3. Confirm deletion
 
-* **Text Not Extracted Correctly?** Ensure the file is text-based (scanned PDFs may need OCR processing before upload).
+<Warning>
+Deleting knowledge affects how your Lemonade responds immediately. Test after removing content to make sure your AI still has the information it needs.
+</Warning>
 
-### **Web Scraping Issues:**
+## Troubleshooting
 
-* **Error Fetching Page?** Ensure the page isn’t blocked from scraping.
+### File Won't Upload
 
-* **Incorrect Content Extracted?** Try a different page layout or manually edit extracted text.
+- Check file size (max 25MB)
+- Verify file format is supported
+- Try a different browser
+- Contact support if issues persist
 
-* **Website Not Supported?** Some sites block scraping—consider copying key text manually.
+### Website Won't Crawl
 
-For further support please email [hello@launchlemonade.app](mailto:hello@launchlemonade.app)
+- Verify the URL is accessible
+- Check if the site allows crawling
+- Try a specific page instead of the homepage
+- Ensure HTTPS is used
+
+### Knowledge Not Being Used
+
+- Verify the file/website processed successfully
+- Check that your Instructions reference the knowledge
+- Ask questions directly related to the uploaded content
+- Re-upload if necessary
+
+## What's Next
+
+<CardGroup cols={2}>
+  <Card
+    title="Set Up Memory"
+    icon="brain"
+    href="/Memory"
+  >
+    Give your Lemonade persistent memory that works across all conversations
+  </Card>
+  <Card
+    title="Configure Instructions"
+    icon="pen-to-square"
+    href="/lemonade-editor"
+  >
+    Tell your AI how to use its knowledge effectively
+  </Card>
+</CardGroup>

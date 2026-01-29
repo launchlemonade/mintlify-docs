@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaunchLemonade Docs Preview</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a1a; background: #f8f9fa; }
+        .layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e5e7eb; position: fixed; height: 100vh; overflow-y: auto; padding: 1.5rem; }
+        .sidebar-logo { font-size: 1.25rem; font-weight: 700; color: #f59e0b; margin-bottom: 2rem; }
+        .sidebar-nav { list-style: none; }
+        .sidebar-nav li { margin-bottom: 0.25rem; }
+        .sidebar-nav a { display: block; padding: 0.5rem 0.75rem; color: #4b5563; text-decoration: none; border-radius: 6px; font-size: 0.9rem; }
+        .sidebar-nav a:hover { background: #f3f4f6; }
+        .sidebar-nav a.active { background: #fef3c7; color: #92400e; font-weight: 500; }
+        .sidebar-section { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #9ca3af; margin: 1.25rem 0 0.5rem 0.75rem; }
+        .main { flex: 1; margin-left: 260px; padding: 2rem 3rem; max-width: 900px; }
+        .page { background: white; border-radius: 12px; padding: 2.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: none; }
+        .page.active { display: block; }
+        .page h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .page .desc { color: #6b7280; font-size: 1.1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; }
+        .page h2 { font-size: 1.5rem; margin: 2rem 0 1rem; color: #1f2937; }
+        .page h3 { font-size: 1.2rem; margin: 1.5rem 0 0.75rem; color: #374151; }
+        .page h4 { font-size: 1rem; margin: 1rem 0 0.5rem; color: #4b5563; }
+        .page p { margin: 1rem 0; color: #374151; }
+        .page ul, .page ol { margin: 1rem 0; padding-left: 1.5rem; }
+        .page li { margin: 0.5rem 0; }
+        .page a { color: #f59e0b; }
+        .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+        .card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; }
+        .card:hover { border-color: #f59e0b; }
+        .card-title { font-weight: 600; color: #1f2937; margin-bottom: 0.25rem; }
+        .card-desc { font-size: 0.875rem; color: #6b7280; }
+        .tip, .note, .warning { padding: 1rem; border-radius: 8px; margin: 1rem 0; font-size: 0.95rem; }
+        .tip { background: #ecfdf5; border-left: 4px solid #10b981; color: #065f46; }
+        .note { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e40af; }
+        .warning { background: #fef3c7; border-left: 4px solid #f59e0b; color: #92400e; }
+        .steps { margin: 1.5rem 0; border-left: 2px solid #e5e7eb; padding-left: 1.5rem; }
+        .step { margin: 1rem 0; position: relative; }
+        .step::before { content: attr(data-n); position: absolute; left: -2.1rem; width: 1.5rem; height: 1.5rem; background: #f59e0b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
+        .step-title { font-weight: 600; color: #1f2937; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        th { background: #f9fafb; font-weight: 600; }
+        .accordion { border: 1px solid #e5e7eb; border-radius: 8px; margin: 0.5rem 0; }
+        .accordion summary { padding: 1rem; cursor: pointer; font-weight: 500; background: #f9fafb; }
+        .accordion-content { padding: 1rem; border-top: 1px solid #e5e7eb; }
+        code { background: #f3f4f6; padding: 0.125rem 0.375rem; border-radius: 4px; font-family: monospace; font-size: 0.875em; }
+        pre { background: #1f2937; color: #e5e7eb; padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; }
+        pre code { background: none; color: inherit; }
+        .img { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px dashed #f59e0b; border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1rem 0; color: #92400e; font-size: 0.9rem; }
+        [contenteditable]:focus { outline: 2px solid #8b5cf6; background: #faf5ff; }
+        [contenteditable]:hover { outline: 2px dashed #d1d5db; }
+        .edit-bar { background: linear-gradient(135deg, #8b5cf6, #6366f1); color: white; padding: 0.5rem 1rem; position: fixed; top: 0; left: 260px; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; }
+        .edit-bar button { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.25rem 0.75rem; border-radius: 6px; cursor: pointer; margin-left: 0.5rem; }
+        .edit-bar button:hover { background: rgba(255,255,255,0.3); }
+        .main { padding-top: 4rem; }
+    </style>
+</head>
+<body>
+<div class="layout">
+<nav class="sidebar">
+    <div class="sidebar-logo">🍋 LaunchLemonade Docs</div>
+    <div class="sidebar-section">Getting Started</div>
+    <ul class="sidebar-nav">
+        <li><a href="#" data-page="introduction" class="active">Introduction</a></li>
+        <li><a href="#" data-page="quickstart">Quickstart</a></li>
+        <li><a href="#" data-page="navigation">App Navigation</a></li>
+    </ul>
+    <div class="sidebar-section">Building Lemonades</div>
+    <ul class="sidebar-nav">
+        <li><a href="#" data-page="lemonade-types">Lemonade Types</a></li>
+        <li><a href="#" data-page="lemonade-editor">Lemonade Editor</a></li>
+        <li><a href="#" data-page="models">AI Models</a></li>
+        <li><a href="#" data-page="knowledge">Knowledge & Training</a></li>
+        <li><a href="#" data-page="memory">Memory (Brain)</a></li>
+    </ul>
+    <div class="sidebar-section">Sharing & Monetizing</div>
+    <ul class="sidebar-nav">
+        <li><a href="#" data-page="deployment">Deployment</a></li>
+        <li><a href="#" data-page="whitelabelling">Whitelabelling</a></li>
+        <li><a href="#" data-page="templates">Templates</a></li>
+    </ul>
+    <div class="sidebar-section">Reference</div>
+    <ul class="sidebar-nav">
+        <li><a href="#" data-page="history">Chat History</a></li>
+        <li><a href="#" data-page="api-doc">API Docs</a></li>
+    </ul>
+</nav>
+<main class="main">
+<div class="edit-bar">
+    <span>✏️ <strong>Edit Mode</strong> – Click any text to edit</span>
+    <div>
+        <button onclick="copyChanges()">📋 Copy Changes</button>
+        <button onclick="location.reload()">↩️ Reset</button>
+    </div>
+</div>
+
+<!-- INTRODUCTION -->
+<div class="page active" id="introduction">
+<h1 contenteditable="true">Welcome to LaunchLemonade 🍋</h1>
+<p class="desc" contenteditable="true">Your AI, your way! Build, customize, and scale your own AI tools and agents.</p>
+
+<h2 contenteditable="true">Introduction (What is LaunchLemonade?)</h2>
+<p contenteditable="true">Ready to build your own AI tools without writing code? LaunchLemonade makes it simple. Whether you're creating a customer support bot, a content assistant, or an AI that knows your business inside-out, you can do it all yourself - no technical skills needed.</p>
+
+<div class="img">🎬 Embedded YouTube Video<br><small>/embed/xpzRS1k6eL0</small></div>
+
+<h2 contenteditable="true">How This Guide Helps You</h2>
+<p contenteditable="true">This guide walks you through everything you need to know - from creating your first AI tool to building complex automation. You'll find step-by-step instructions, tips from other users, and answers to common questions.</p>
+
+<h2 contenteditable="true">What Can You Do With LaunchLemonade?</h2>
+<div class="cards">
+    <div class="card"><div class="card-title" contenteditable="true">✨ Create AI Tools</div><div class="card-desc" contenteditable="true">Build custom AI assistants in minutes - no coding, no experience needed. Choose from 20+ AI models.</div></div>
+    <div class="card"><div class="card-title" contenteditable="true">🤖 Automate Tasks</div><div class="card-desc" contenteditable="true">Streamline workflows and automate repetitive tasks so you can focus on what matters.</div></div>
+    <div class="card"><div class="card-title" contenteditable="true">✍️ Generate Content</div><div class="card-desc" contenteditable="true">Create high-quality content with AI-powered assistants that understand your brand voice.</div></div>
+    <div class="card"><div class="card-title" contenteditable="true">🧠 Train AI Agents</div><div class="card-desc" contenteditable="true">Train agents with your unique knowledge and data - your AI knows YOUR business.</div></div>
+    <div class="card"><div class="card-title" contenteditable="true">👥 Collaborate</div><div class="card-desc" contenteditable="true">Work with teams to build scalable AI solutions everyone can use.</div></div>
+    <div class="card"><div class="card-title" contenteditable="true">🚀 Deploy & Monetize</div><div class="card-desc" contenteditable="true">Deploy chatbots on your website and turn your AI tools into a business.</div></div>
+</div>
+
+<h2 contenteditable="true">Choose Your Goal (Quick Navigation)</h2>
+<p contenteditable="true">Pick what sounds most like you:</p>
+<table>
+    <tr><th>Goal</th><th>Resource</th></tr>
+    <tr><td contenteditable="true">✅ I'm new – I want to get started!</td><td>Quickstart Guide</td></tr>
+    <tr><td contenteditable="true">✅ I want to create an AI tool for marketing</td><td>Marketing Tools</td></tr>
+    <tr><td contenteditable="true">✅ I need help with integrations</td><td>API Documentation</td></tr>
+    <tr><td contenteditable="true">✅ I want to monetize my AI</td><td>Mixes & Monetization</td></tr>
+    <tr><td contenteditable="true">✅ I have a specific question</td><td>Chat with us</td></tr>
+</table>
+
+<h2 contenteditable="true">Join Our Community</h2>
+<div class="cards">
+    <div class="card"><div class="card-title" contenteditable="true">💬 WhatsApp Community</div><div class="card-desc" contenteditable="true">Join our active community of AI builders</div></div>
+    <div class="card"><div class="card-title" contenteditable="true">✉️ Contact Support</div><div class="card-desc" contenteditable="true">Reach out to our support team</div></div>
+</div>
+
+<h2 contenteditable="true">Get Started</h2>
+<div class="cards">
+    <div class="card"><div class="card-title" contenteditable="true">▶️ Quick Start</div><div class="card-desc" contenteditable="true">Step by step instructions to launching your first Lemonade</div></div>
+    <div class="card"><div class="card-title" contenteditable="true">📺 Watch Videos</div><div class="card-desc" contenteditable="true">Watch tutorials on how to get started</div></div>
+</div>
+</div>
+
+<!-- QUICKSTART -->
+<div class="page" id="quickstart">
+<h1 contenteditable="true">LaunchLemonade Quickstart</h1>
+<p class="desc" contenteditable="true">Start building awesome Lemonades in minutes.</p>
+
+<h2 contenteditable="true">Let's Get Started!</h2>
+<p contenteditable="true">In the next 5 minutes, you'll create your first AI tool. No coding required - just a few clicks and you're ready to go.</p>
+
+<h2 contenteditable="true">Step 1: Sign Up</h2>
+<p contenteditable="true">Head to sip.launchlemonade.app and create your free account.</p>
+<div class="img">🖼️ Screenshot: Signup Page<br><small>/images/quickstart/quickstart-signup-01-landing.png</small></div>
+
+<h2 contenteditable="true">Step 2: Create Your First Lemonade</h2>
+<p contenteditable="true">Once on the dashboard, click the <strong>"+ NEW"</strong> button in the top right corner.</p>
+<div class="img">🖼️ Screenshot: Dashboard<br><small>/images/quickstart/quickstart-create-01-dashboard.png</small></div>
+
+<p contenteditable="true">You'll see a popup asking you to:</p>
+<ol>
+    <li contenteditable="true"><strong>Give your Lemonade a name</strong> (e.g., "Meal Advisor", "Legal CoPilot", "AI CFO")</li>
+    <li contenteditable="true"><strong>Select the type of Lemonade</strong></li>
+</ol>
+<div class="img">🖼️ Screenshot: Create Popup<br><small>/images/quickstart/quickstart-create-02-popup.png</small></div>
+
+<h3 contenteditable="true">Lemonade Types</h3>
+<div class="tip" contenteditable="true">Don't worry about choosing the "perfect" type - you can always create more Lemonades later. For your first one, we recommend Chat Lemonade.</div>
+
+<table>
+    <tr><th>Type</th><th>Description</th><th>Best For</th></tr>
+    <tr><td contenteditable="true"><strong>Chat Lemonade</strong></td><td contenteditable="true">Start here! Build AI assistants with 20+ models and your data</td><td contenteditable="true">Chatbots, assistants, Q&A</td></tr>
+    <tr><td contenteditable="true"><strong>Voice Lemonade</strong></td><td contenteditable="true">AI that listens and speaks to you with empathetic voice models</td><td contenteditable="true">Voice assistants, coaching</td></tr>
+    <tr><td contenteditable="true"><strong>Lemonade Flows</strong></td><td contenteditable="true">Multi-step AI workflows with form-like experiences</td><td contenteditable="true">Lead capture, surveys</td></tr>
+    <tr><td contenteditable="true"><strong>Lemonade Agents</strong></td><td contenteditable="true">Combine multiple Lemonades, Memory, and tools</td><td contenteditable="true">Complex automation</td></tr>
+    <tr><td contenteditable="true"><strong>Image Lemonade</strong></td><td contenteditable="true">Generate and edit images with AI</td><td contenteditable="true">Visual content creation</td></tr>
+</table>
+
+<div class="tip" contenteditable="true"><strong>New to LaunchLemonade?</strong> Start with a <strong>Chat Lemonade</strong> – it's the easiest way to get started!</div>
+
+<h2 contenteditable="true">Step 3: Configure Your Lemonade</h2>
+<p contenteditable="true">After creating, you'll enter the <strong>Lemonade Editor</strong> with 7 tabs:</p>
+<div class="img">🖼️ Screenshot: Editor Tabs<br><small>/images/quickstart/quickstart-editor-01-tabs.png</small></div>
+
+<h3 contenteditable="true">Model Tab</h3>
+<p contenteditable="true">Choose your AI model. We offer:</p>
+<p contenteditable="true"><strong>Free Models</strong> (no credit card required):</p>
+<ul>
+    <li contenteditable="true"><strong>Auto Routing</strong> – We automatically select the best model for you</li>
+    <li contenteditable="true"><strong>Gemini 2.5 Flash</strong> – Strong for lots of tasks, fast too!</li>
+    <li contenteditable="true"><strong>GPT-4o Mini</strong> – Good for almost everything you need</li>
+    <li contenteditable="true"><strong>Mistral Minimax-m1</strong> – Mixture of Expert model, super fast</li>
+</ul>
+
+<p contenteditable="true"><strong>Recommended Models</strong>:</p>
+<ul>
+    <li contenteditable="true"><strong>Claude Sonnet 4.5</strong> – Most advanced Claude model with superior reasoning</li>
+    <li contenteditable="true"><strong>GPT-5.1</strong> – Most advanced model from OpenAI</li>
+    <li contenteditable="true"><strong>xAI Grok 4.1 Fast</strong> – Latest reasoning model from xAI</li>
+    <li contenteditable="true"><strong>Kimi K2 Thinking</strong> – Optimized for coding, math, and deterministic tasks</li>
+    <li contenteditable="true"><strong>Google Gemini 3</strong> – Latest reasoning model from Google</li>
+</ul>
+
+<h3 contenteditable="true">Guide Tab</h3>
+<p contenteditable="true">A helpful checklist showing what your Lemonade needs:</p>
+<p contenteditable="true"><strong>Mandatory (3 items):</strong></p>
+<ul>
+    <li contenteditable="true">✅ Connected to a Model</li>
+    <li contenteditable="true">✅ Has an Instruction</li>
+    <li contenteditable="true">✅ Has a Welcome message</li>
+</ul>
+
+<h3 contenteditable="true">Instructions Tab</h3>
+<p contenteditable="true">Configure how your Lemonade behaves:</p>
+<ul>
+    <li contenteditable="true"><strong>Welcome Message</strong> – The first message sent to users. Use {first_name} to personalize!</li>
+    <li contenteditable="true"><strong>Instructions</strong> – Tell your AI who it is and how to behave. Think of it like giving a new employee their job description.</li>
+</ul>
+
+<h3 contenteditable="true">Knowledge Tab</h3>
+<p contenteditable="true">Train your Lemonade with your own data:</p>
+<ul>
+    <li contenteditable="true"><strong>Add Files</strong> – Upload PDFs, documents, spreadsheets</li>
+    <li contenteditable="true"><strong>Add Websites</strong> – Crawl and learn from any website</li>
+    <li contenteditable="true"><strong>Integrations:</strong> Notion, Google Drive</li>
+</ul>
+
+<h2 contenteditable="true">Step 4: Test Your Lemonade</h2>
+<p contenteditable="true">You did it! Click <strong>"Run Lemonade"</strong> in the top right to start chatting with your brand new AI.</p>
+<div class="img">🖼️ Screenshot: Run Button<br><small>/images/quickstart/quickstart-test-01-run-button.png</small></div>
+
+<h2 contenteditable="true">Step 5: Share & Deploy</h2>
+<p contenteditable="true">Once you're happy with your Lemonade:</p>
+<ul>
+    <li contenteditable="true">Use the <strong>Deploy</strong> tab to set up email, embed, or subscription options</li>
+    <li contenteditable="true">Create a <strong>Mix</strong> to package and brand your Lemonade for deployment</li>
+</ul>
+
+<h2 contenteditable="true">Next Steps</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">💡 Set Up Brain/Memory</div><div class="card-desc">Configure persistent memory for your Lemonades</div></div>
+    <div class="card"><div class="card-title">🧠 Build Knowledge</div><div class="card-desc">Learn how to train your Lemonade with files and websites</div></div>
+    <div class="card"><div class="card-title">🎁 Create Mixes</div><div class="card-desc">Package and whitelabel your Lemonades</div></div>
+    <div class="card"><div class="card-title">📋 Explore Templates</div><div class="card-desc">Start from 80+ pre-built templates</div></div>
+</div>
+</div>
+
+<!-- NAVIGATION -->
+<div class="page" id="navigation">
+<h1 contenteditable="true">App Navigation Guide</h1>
+<p class="desc" contenteditable="true">Find your way around LaunchLemonade</p>
+
+<h2 contenteditable="true">Your Quick Tour</h2>
+<p contenteditable="true">New to LaunchLemonade? Here's a quick tour of where everything lives - so you always know where to click.</p>
+<p contenteditable="true">Think of this as your friend showing you around on day one!</p>
+
+<h2 contenteditable="true">Main Navigation</h2>
+<p contenteditable="true">LaunchLemonade's navigation bar is at the top of the screen:</p>
+<p contenteditable="true"><strong>Lemonades</strong> - This is home base! See all your AI tools in one place, create new ones, and click into any Lemonade to edit it.</p>
+<p contenteditable="true"><strong>Mixes</strong> - Ready to share? This is where you package your Lemonades for websites and customers.</p>
+<p contenteditable="true"><strong>Marketplace</strong> - Browse 80+ ready-made templates. It's like an app store for AI tools!</p>
+<p contenteditable="true"><strong>History</strong> - View all your chat conversations - both your test chats and messages from users.</p>
+<p contenteditable="true"><strong>Profile & Billing</strong> - Your account settings, billing, API keys, and Brain setup.</p>
+
+<h2 contenteditable="true">Your First 3 Actions (New Users)</h2>
+<p contenteditable="true">Just getting started? Do these three things first:</p>
+<ol>
+    <li contenteditable="true"><strong>Create your first Lemonade:</strong> Click <strong>"+ NEW"</strong> in the top right</li>
+    <li contenteditable="true"><strong>Add some knowledge:</strong> Click the <strong>Knowledge</strong> tab and upload a document</li>
+    <li contenteditable="true"><strong>Test it:</strong> Click <strong>"Run Lemonade"</strong> and try a conversation</li>
+</ol>
+<p contenteditable="true">Once you've done that, everything else will make way more sense!</p>
+
+<h2 contenteditable="true">Lemonade Editor Navigation</h2>
+<p contenteditable="true">When editing a Lemonade, you'll see 7 tabs:</p>
+<p contenteditable="true"><strong>Model</strong> - Choose your AI model (GPT-4, Claude, etc.)</p>
+<p contenteditable="true"><strong>Guide</strong> - A helpful checklist of what your Lemonade needs to work well</p>
+<p contenteditable="true"><strong>Instructions</strong> - Set your welcome message and system prompt (the most important tab!)</p>
+<p contenteditable="true"><strong>Knowledge</strong> - Add files, websites, and integrations to teach your Lemonade</p>
+<p contenteditable="true"><strong>Details</strong> - Name, description, Brain connection, and styling options</p>
+<p contenteditable="true"><strong>Add On</strong> - Enable search, file uploads, and conversation memory</p>
+<p contenteditable="true"><strong>Deploy</strong> - Email setup, embed codes, and monetization options</p>
+
+<h2 contenteditable="true">What's Next?</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">✨ Create Your First Lemonade</div><div class="card-desc">Start building</div></div>
+    <div class="card"><div class="card-title">👥 Join Community</div><div class="card-desc">Ask in WhatsApp</div></div>
+</div>
+</div>
+
+<!-- LEMONADE TYPES -->
+<div class="page" id="lemonade-types">
+<h1 contenteditable="true">Lemonade Types</h1>
+<p class="desc" contenteditable="true">Choose the right type of Lemonade for your use case</p>
+
+<h2 contenteditable="true">Overview</h2>
+<p contenteditable="true">There are five types of Lemonades you can create - each does something a bit different. Most people start with Chat Lemonades (the most popular and easiest), but feel free to explore!</p>
+
+<h2 contenteditable="true">The Five Types</h2>
+
+<h3 contenteditable="true">1. Chat Lemonade</h3>
+<p contenteditable="true">The most popular choice. Build AI assistants that chat with users.</p>
+<p contenteditable="true"><strong>Best for:</strong> Customer support bots, Q&A assistants, Personal AI helpers, Internal knowledge bases</p>
+<p contenteditable="true"><strong>Features:</strong> Access to 20+ AI models, Upload your own knowledge, Customize personality, Deploy via embed, email, or API</p>
+<div class="tip" contenteditable="true"><strong>New to LaunchLemonade?</strong> Start here! Chat Lemonades are the easiest to set up and most versatile.</div>
+
+<h3 contenteditable="true">2. Voice Lemonade</h3>
+<p contenteditable="true">AI that listens and speaks. Natural voice conversations.</p>
+<p contenteditable="true"><strong>Best for:</strong> Voice-based coaching, Call center automation, Accessibility applications, Interactive voice experiences</p>
+<p contenteditable="true"><strong>Features:</strong> Speech-to-text input, Text-to-speech output, Empathetic voice models, Natural conversation flow</p>
+
+<h3 contenteditable="true">3. Lemonade Flows</h3>
+<p contenteditable="true">Multi-step AI workflows with form-like experiences.</p>
+<p contenteditable="true"><strong>Best for:</strong> Lead capture forms, Customer surveys, Onboarding processes, Data collection</p>
+<p contenteditable="true"><strong>Features:</strong> Step-by-step conversation paths, Conditional logic (if/then branching), Data collection and export</p>
+
+<h3 contenteditable="true">4. Lemonade Agents</h3>
+<p contenteditable="true">Combine multiple Lemonades for complex, autonomous tasks.</p>
+<p contenteditable="true"><strong>Best for:</strong> Complex automation, Multi-tool workflows, Agentic AI systems</p>
+<div class="tip" contenteditable="true">Agents are powerful but have more moving parts. Once you're comfortable with Chat Lemonades, Agents will feel much easier to tackle.</div>
+
+<h3 contenteditable="true">5. Image Lemonade</h3>
+<p contenteditable="true">Generate and edit images with AI.</p>
+<p contenteditable="true"><strong>Best for:</strong> Visual content creation, Marketing graphics, Product mockups, Creative exploration</p>
+
+<h2 contenteditable="true">Comparison Chart</h2>
+<table>
+    <tr><th>Type</th><th>Best For</th><th>Getting Started</th><th>How It Works</th></tr>
+    <tr><td>Chat</td><td contenteditable="true">Conversations</td><td>5 minutes</td><td>Text in → Text out</td></tr>
+    <tr><td>Voice</td><td contenteditable="true">Spoken interaction</td><td>10 minutes</td><td>Voice in → Voice out</td></tr>
+    <tr><td>Flows</td><td contenteditable="true">Structured data collection</td><td>15 minutes</td><td>Multi-step forms with AI</td></tr>
+    <tr><td>Agents</td><td contenteditable="true">Complex automation</td><td>Takes practice</td><td>Multiple Lemonades working together</td></tr>
+    <tr><td>Image</td><td contenteditable="true">Visual creation</td><td>5 minutes</td><td>Text in → Images out</td></tr>
+</table>
+
+<h2 contenteditable="true">Quick Decision Guide</h2>
+<table>
+    <tr><th>If you want to...</th><th>Choose</th></tr>
+    <tr><td contenteditable="true">Answer questions</td><td>Chat Lemonade</td></tr>
+    <tr><td contenteditable="true">Talk on the phone</td><td>Voice Lemonade</td></tr>
+    <tr><td contenteditable="true">Collect form data</td><td>Lemonade Flows</td></tr>
+    <tr><td contenteditable="true">Automate complex tasks</td><td>Lemonade Agents</td></tr>
+    <tr><td contenteditable="true">Create images</td><td>Image Lemonade</td></tr>
+</table>
+
+<div class="note" contenteditable="true">You can create multiple Lemonades of different types! Many users have Chat Lemonades for support and Image Lemonades for content creation.</div>
+
+<h2 contenteditable="true">What's Next?</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">▶️ Quick Start</div><div class="card-desc">Step-by-step creation guide</div></div>
+    <div class="card"><div class="card-title">✏️ Editor Guide</div><div class="card-desc">Master the Lemonade Editor</div></div>
+    <div class="card"><div class="card-title">🧠 Choose Your Model</div><div class="card-desc">Learn about the 20+ AI models</div></div>
+    <div class="card"><div class="card-title">📚 Add Knowledge</div><div class="card-desc">Teach your Lemonade about your business</div></div>
+</div>
+</div>
+
+<!-- LEMONADE EDITOR -->
+<div class="page" id="lemonade-editor">
+<h1 contenteditable="true">Lemonade Editor Guide</h1>
+<p class="desc" contenteditable="true">Shape your AI personality, knowledge, and superpowers</p>
+
+<h2 contenteditable="true">Your Control Center</h2>
+<p contenteditable="true">The Lemonade Editor is your control center - where you shape your AI's personality, knowledge, and superpowers. Let's walk through each section so you know exactly what's possible.</p>
+<p contenteditable="true">Think of the Editor as your AI workshop. You have 7 tabs on the left side, each handling a different part of your Lemonade. Plus, there's a <strong>"Run Lemonade"</strong> button in the top right to test everything as you go.</p>
+
+<div class="img">🖼️ Screenshot: Model Tab<br><small>/images/lemonade-editor/editor-model-01-tab.png</small></div>
+
+<h2 contenteditable="true">Accessing the Editor</h2>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Go to Lemonades</div><p>Click <strong>Lemonades</strong> in the top navigation</p></div>
+    <div class="step" data-n="2"><div class="step-title">Select a Lemonade</div><p>Click on any Lemonade card to open it</p></div>
+</div>
+
+<h2 contenteditable="true">Pick Your AI Model</h2>
+<p contenteditable="true">First up: choosing which AI brain powers your Lemonade. Don't worry about picking the "perfect" model - Auto Routing works great for most people, and you can always switch later.</p>
+
+<h3 contenteditable="true">Free Models</h3>
+<table>
+    <tr><th>Model</th><th>Provider</th><th>Description</th></tr>
+    <tr><td contenteditable="true"><strong>Auto Routing</strong></td><td>LaunchLemonade</td><td contenteditable="true">We automatically select the best model</td></tr>
+    <tr><td contenteditable="true"><strong>Gemini 2.5 Flash</strong></td><td>Google</td><td contenteditable="true">Strong for lots of tasks, fast too!</td></tr>
+    <tr><td contenteditable="true"><strong>GPT-4o Mini</strong></td><td>OpenAI</td><td contenteditable="true">Good for almost everything you need</td></tr>
+    <tr><td contenteditable="true"><strong>Mistral Minimax-m1</strong></td><td>Mistral</td><td contenteditable="true">Mixture of Expert model, super fast</td></tr>
+</table>
+
+<div class="tip" contenteditable="true">Not sure which to pick? Start with <strong>Auto Routing</strong> and let us choose the best model for each request!</div>
+
+<h2 contenteditable="true">Set Up Instructions</h2>
+<p contenteditable="true">This is where you give your AI its personality and job description.</p>
+<div class="img">🖼️ Screenshot: Instructions Tab<br><small>/images/lemonade-editor/editor-instructions-01-tab.png</small></div>
+
+<h3 contenteditable="true">Welcome Message</h3>
+<p contenteditable="true">The first message sent when someone starts a chat.</p>
+<p contenteditable="true"><strong>Default:</strong> "Hello {first_name}, how can I help you today?"</p>
+<div class="note" contenteditable="true">Use <code>{first_name}</code> as a placeholder to automatically insert the user's first name!</div>
+
+<h3 contenteditable="true">Instructions</h3>
+<p contenteditable="true">This is where you give your AI its personality and job description. Think of it like hiring someone - you're writing their role and guidelines.</p>
+<div class="note" contenteditable="true">Developers call this a "system prompt" - now you know the lingo!</div>
+
+<h2 contenteditable="true">Add Your Knowledge</h2>
+<p contenteditable="true">Train your Lemonade with your own data to make it an expert in your domain.</p>
+<div class="img">🖼️ Screenshot: Knowledge Tab<br><small>/images/lemonade-editor/editor-knowledge-01-tab.png</small></div>
+
+<h3 contenteditable="true">Add Files</h3>
+<p contenteditable="true">Upload documents to give your Lemonade specific knowledge:</p>
+<ul>
+    <li contenteditable="true">Click <strong>"Add Files"</strong></li>
+    <li contenteditable="true">Upload PDFs, Word docs, spreadsheets, etc.</li>
+    <li contenteditable="true">Files are processed and indexed</li>
+</ul>
+
+<h3 contenteditable="true">Add Websites</h3>
+<p contenteditable="true">Teach your Lemonade from web content:</p>
+<ul>
+    <li contenteditable="true">Click <strong>"Add Websites"</strong></li>
+    <li contenteditable="true">Enter any URL</li>
+    <li contenteditable="true">The content is crawled and indexed</li>
+</ul>
+
+<h2 contenteditable="true">Power Up with Add-Ons</h2>
+<div class="img">🖼️ Screenshot: Add-Ons Tab<br><small>/images/lemonade-editor/editor-addons-01-tab.png</small></div>
+
+<table>
+    <tr><th>Feature</th><th>Description</th><th>Default</th></tr>
+    <tr><td contenteditable="true"><strong>Enable Search</strong></td><td contenteditable="true">Let your Lemonade search the internet</td><td>Off</td></tr>
+    <tr><td contenteditable="true"><strong>Enable File Upload</strong></td><td contenteditable="true">Users can upload files during chat</td><td>On</td></tr>
+    <tr><td contenteditable="true"><strong>Enable Image Upload</strong></td><td contenteditable="true">Users can share images for analysis</td><td>On</td></tr>
+    <tr><td contenteditable="true"><strong>Remember All Conversations</strong></td><td contenteditable="true">Lemonade remembers all chats</td><td>Off</td></tr>
+    <tr><td contenteditable="true"><strong>Developer Mode</strong></td><td contenteditable="true">Connect via API or Zapier</td><td>Off</td></tr>
+</table>
+
+<h2 contenteditable="true">Share Your Lemonade</h2>
+<div class="img">🖼️ Screenshot: Deploy Tab<br><small>/images/lemonade-editor/editor-deploy-01-tab.png</small></div>
+
+<h3 contenteditable="true">Deploy as an Employee via Email</h3>
+<p contenteditable="true">Email your Lemonade directly from your inbox - like having an AI assistant you can email anytime.</p>
+
+<h3 contenteditable="true">Deploy as a ChatBot on your website</h3>
+<p contenteditable="true">Embed your Lemonade as a chat widget on any website.</p>
+<p contenteditable="true"><strong>Pricing:</strong> $29/mo (Embed Mix)</p>
+
+<h3 contenteditable="true">Deploy on your Domain to sell</h3>
+<p contenteditable="true">Monetize your Lemonade with subscriptions - turn your AI into a business.</p>
+<p contenteditable="true"><strong>Pricing:</strong> $49/mo + 10% transaction fees</p>
+
+<h2 contenteditable="true">Test Your Creation</h2>
+<p contenteditable="true">Click <strong>"Run Lemonade"</strong> in the top right to test your creation.</p>
+<div class="tip" contenteditable="true">Always test thoroughly before deploying! Try edge cases and unexpected questions.</div>
+
+<h2 contenteditable="true">What's Next?</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">🚀 Deploy Your Lemonade</div><div class="card-desc">Share via email, website, or custom domain</div></div>
+    <div class="card"><div class="card-title">🧠 Add Knowledge Files</div><div class="card-desc">Upload documents and websites</div></div>
+    <div class="card"><div class="card-title">✨ Explore AI Models</div><div class="card-desc">Deep dive into choosing the perfect model</div></div>
+    <div class="card"><div class="card-title">💡 Set Up Memory</div><div class="card-desc">Give your Lemonades persistent memory</div></div>
+</div>
+</div>
+
+<!-- MODELS -->
+<div class="page" id="models">
+<h1 contenteditable="true">AI Models</h1>
+<p class="desc" contenteditable="true">Choose the right AI model for your Lemonade</p>
+
+<h2 contenteditable="true">Overview</h2>
+<p contenteditable="true">You have access to 20+ AI models - but don't worry about picking the "perfect" one. Our Auto Routing feature can choose for you, and you can always switch later.</p>
+
+<div class="img">🖼️ Screenshot: Model Tab<br><small>/images/models/models-tab-01-overview.png</small></div>
+
+<h2 contenteditable="true">Free Models</h2>
+<p contenteditable="true">No credit card required – perfect for getting started and testing.</p>
+<table>
+    <tr><th>Model</th><th>Provider</th><th>Description</th><th>Best For</th></tr>
+    <tr><td><strong>Auto Routing</strong></td><td>LaunchLemonade</td><td contenteditable="true">We automatically select the best model</td><td contenteditable="true">General use</td></tr>
+    <tr><td><strong>Gemini 2.5 Flash</strong></td><td>Google</td><td contenteditable="true">Strong performance, fast responses</td><td contenteditable="true">Quick tasks</td></tr>
+    <tr><td><strong>GPT-4o Mini</strong></td><td>OpenAI</td><td contenteditable="true">Good for almost everything</td><td contenteditable="true">General purpose</td></tr>
+    <tr><td><strong>Mistral Minimax-m1</strong></td><td>Mistral</td><td contenteditable="true">Mixture of Expert model, super fast</td><td contenteditable="true">Speed-critical</td></tr>
+</table>
+
+<div class="tip" contenteditable="true"><strong>Not sure which to pick?</strong> Start with <strong>Auto Routing</strong> – we'll choose the best model for each request automatically!</div>
+
+<h2 contenteditable="true">Recommended Models</h2>
+<table>
+    <tr><th>Model</th><th>Provider</th><th>Description</th></tr>
+    <tr><td><strong>Claude Sonnet 4.5</strong></td><td>Anthropic</td><td contenteditable="true">Most advanced Claude with superior reasoning</td></tr>
+    <tr><td><strong>GPT-5.1</strong></td><td>OpenAI</td><td contenteditable="true">Most advanced model from OpenAI</td></tr>
+    <tr><td><strong>xAI Grok 4.1 Fast</strong></td><td>xAI</td><td contenteditable="true">Latest reasoning model from xAI</td></tr>
+    <tr><td><strong>Kimi K2 Thinking</strong></td><td>Moonshot</td><td contenteditable="true">Optimized for coding, math, deterministic tasks</td></tr>
+    <tr><td><strong>Google Gemini 3</strong></td><td>Google</td><td contenteditable="true">Latest reasoning model from Google</td></tr>
+</table>
+
+<h2 contenteditable="true">What Each Provider is Good At</h2>
+
+<h3 contenteditable="true">When to use Claude</h3>
+<ul>
+    <li contenteditable="true">You want thoughtful, detailed answers</li>
+    <li contenteditable="true">You need to follow specific instructions carefully</li>
+    <li contenteditable="true">Good for: content writing, analysis, customer support</li>
+</ul>
+
+<h3 contenteditable="true">When to use GPT (OpenAI)</h3>
+<ul>
+    <li contenteditable="true">You need versatile AI that handles most tasks well</li>
+    <li contenteditable="true">You want something widely documented</li>
+    <li contenteditable="true">Good for: general purpose, all-around use</li>
+</ul>
+
+<h3 contenteditable="true">When to use Gemini (Google)</h3>
+<ul>
+    <li contenteditable="true">You need fast responses with good quality</li>
+    <li contenteditable="true">You're working with images and text together</li>
+    <li contenteditable="true">Good for: quick answers, fact-checking, visual tasks</li>
+</ul>
+
+<h2 contenteditable="true">Model Comparison By Capability</h2>
+<table>
+    <tr><th>Task</th><th>Best Model(s)</th></tr>
+    <tr><td contenteditable="true">General Chat</td><td>Claude Sonnet 4.5, GPT-5.1</td></tr>
+    <tr><td contenteditable="true">Complex Reasoning</td><td>Claude Sonnet 4.5, Kimi K2 Thinking</td></tr>
+    <tr><td contenteditable="true">Coding & Math</td><td>Kimi K2 Thinking, GPT-5.1</td></tr>
+    <tr><td contenteditable="true">Creative Writing</td><td>Claude Sonnet 4.5, GPT-5.1</td></tr>
+    <tr><td contenteditable="true">Fast Responses</td><td>Gemini 2.5 Flash, Mistral Minimax-m1</td></tr>
+</table>
+
+<h2 contenteditable="true">Not Sure Which Model to Pick?</h2>
+<p contenteditable="true"><strong>If you're just getting started:</strong> Stick with Auto Routing</p>
+<p contenteditable="true"><strong>If you need the best quality:</strong> Try Claude Sonnet 4.5 or GPT-5.1</p>
+<p contenteditable="true"><strong>If speed matters most:</strong> Use Gemini 2.5 Flash or xAI Grok Fast</p>
+<p contenteditable="true"><strong>For coding help:</strong> Kimi K2 Thinking is your friend</p>
+
+<h2 contenteditable="true">What's Next?</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">✏️ Lemonade Editor</div><div class="card-desc">Learn about all the other settings</div></div>
+    <div class="card"><div class="card-title">🧠 Memory Setup</div><div class="card-desc">Give your AI persistent memory</div></div>
+    <div class="card"><div class="card-title">🚀 Deploy</div><div class="card-desc">Put your AI to work</div></div>
+    <div class="card"><div class="card-title">⭐ Best Practices</div><div class="card-desc">Tips for great results</div></div>
+</div>
+</div>
+
+<!-- KNOWLEDGE -->
+<div class="page" id="knowledge">
+<h1 contenteditable="true">Knowledge & Training</h1>
+<p class="desc" contenteditable="true">Train your Lemonade with files, websites, and integrations</p>
+
+<h2 contenteditable="true">Why Knowledge Matters</h2>
+<p contenteditable="true">Want your Lemonade to know YOUR business? The Knowledge tab is where you share your documents, websites, and data - so your AI can give answers specific to you, not generic internet responses.</p>
+<p contenteditable="true">Good knowledge makes your Lemonade smarter, more accurate, and genuinely helpful for your unique needs.</p>
+
+<div class="img">🖼️ Screenshot: Knowledge Tab<br><small>/images/knowledge/knowledge-tab-01-overview.png</small></div>
+
+<h2 contenteditable="true">Three Ways to Add Knowledge</h2>
+
+<h3 contenteditable="true">1. Add Files</h3>
+<p contenteditable="true">Upload documents directly to train your Lemonade.</p>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Click Add Files</div></div>
+    <div class="step" data-n="2"><div class="step-title">Select Documents</div></div>
+    <div class="step" data-n="3"><div class="step-title">Wait for Processing</div></div>
+</div>
+
+<p contenteditable="true"><strong>Supported File Types:</strong></p>
+<table>
+    <tr><th>Format</th><th>Extension</th><th>Best For</th></tr>
+    <tr><td>PDF</td><td>.pdf</td><td contenteditable="true">Manuals, reports, ebooks</td></tr>
+    <tr><td>Word</td><td>.docx</td><td contenteditable="true">Documents, SOPs</td></tr>
+    <tr><td>Text</td><td>.txt</td><td contenteditable="true">Simple text content</td></tr>
+    <tr><td>CSV</td><td>.csv</td><td contenteditable="true">Data tables, lists</td></tr>
+    <tr><td>Excel</td><td>.xlsx</td><td contenteditable="true">Spreadsheets</td></tr>
+</table>
+
+<div class="tip" contenteditable="true">Break large documents into smaller, focused files for better results. A 100-page manual should be split into logical sections.</div>
+
+<h3 contenteditable="true">2. Add Websites</h3>
+<p contenteditable="true">Crawl and learn from web content.</p>
+<p contenteditable="true"><strong>Great for:</strong> Product documentation, FAQ pages, Help center articles, Blog content, Company information</p>
+
+<div class="warning" contenteditable="true">Only crawl websites you own or have permission to use. When in doubt, stick to your own content!</div>
+
+<h3 contenteditable="true">3. Integrations</h3>
+<table>
+    <tr><th>Integration</th><th>Description</th><th>Use Case</th></tr>
+    <tr><td><strong>Notion</strong></td><td contenteditable="true">Connect your Notion workspace</td><td contenteditable="true">Team wikis, documentation</td></tr>
+    <tr><td><strong>Google Drive</strong></td><td contenteditable="true">Connect your Drive files</td><td contenteditable="true">Shared documents, spreadsheets</td></tr>
+</table>
+
+<h2 contenteditable="true">Knowledge vs Brain</h2>
+<table>
+    <tr><th>Feature</th><th>Knowledge (Tab 4)</th><th>Brain (Profile & Billing)</th></tr>
+    <tr><td><strong>Scope</strong></td><td contenteditable="true">This Lemonade only</td><td contenteditable="true">All your Lemonades</td></tr>
+    <tr><td><strong>Content</strong></td><td contenteditable="true">Documents, websites</td><td contenteditable="true">Persistent memory</td></tr>
+    <tr><td><strong>Use Case</strong></td><td contenteditable="true">Domain expertise</td><td contenteditable="true">Remembered facts</td></tr>
+    <tr><td><strong>Updates</strong></td><td contenteditable="true">Manual uploads</td><td contenteditable="true">Automatic learning</td></tr>
+</table>
+
+<div class="note" contenteditable="true">Use <strong>Knowledge</strong> for specific expertise (product docs, FAQs). Use <strong>Brain</strong> for things that should be remembered across all conversations.</div>
+
+<h2 contenteditable="true">For Best Results</h2>
+<p contenteditable="true"><strong>Start small</strong> - A few focused documents work better than uploading everything at once.</p>
+<p contenteditable="true"><strong>Keep it fresh</strong> - Update files when information changes.</p>
+<p contenteditable="true"><strong>Remove duplicates</strong> - Don't upload the same content multiple ways.</p>
+<p contenteditable="true"><strong>Use clear names</strong> - Name files descriptively.</p>
+<p contenteditable="true"><strong>Quality over quantity</strong> - 10 well-organized pages beat 100 poorly structured ones.</p>
+
+<h2 contenteditable="true">Troubleshooting</h2>
+<h3 contenteditable="true">File Won't Upload</h3>
+<ul>
+    <li contenteditable="true">Check file size (max 25MB)</li>
+    <li contenteditable="true">Verify file format is supported</li>
+    <li contenteditable="true">Try a different browser</li>
+</ul>
+
+<h3 contenteditable="true">Website Won't Crawl</h3>
+<ul>
+    <li contenteditable="true">Verify the URL is accessible</li>
+    <li contenteditable="true">Check if the site allows crawling</li>
+    <li contenteditable="true">Try a specific page instead of the homepage</li>
+</ul>
+
+<h2 contenteditable="true">What's Next</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">🧠 Set Up Memory</div><div class="card-desc">Give your Lemonade persistent memory</div></div>
+    <div class="card"><div class="card-title">✏️ Configure Instructions</div><div class="card-desc">Tell your AI how to use its knowledge</div></div>
+</div>
+</div>
+
+<!-- MEMORY -->
+<div class="page" id="memory">
+<h1 contenteditable="true">Setting Up Your AI Memory (No Code Required!) 🍋</h1>
+<p class="desc" contenteditable="true">Give your Lemonades persistent memory with the Brain feature</p>
+
+<h2 contenteditable="true">Why Memory Matters</h2>
+<p contenteditable="true">Your LaunchLemonade Lemonades get smarter and more helpful when they remember key facts about you, your brand, and your work. Good memory means fewer repeats, faster results, and a more personal experience.</p>
+
+<h2 contenteditable="true">Understanding Brain vs Knowledge</h2>
+<table>
+    <tr><th>Feature</th><th>Location</th><th>Purpose</th></tr>
+    <tr><td><strong>Brain</strong></td><td contenteditable="true">Profile & Billing → Brain tab</td><td contenteditable="true">Account-wide memory shared across multiple Lemonades</td></tr>
+    <tr><td><strong>Knowledge</strong></td><td contenteditable="true">Lemonade Editor → Knowledge tab</td><td contenteditable="true">Lemonade-specific files, websites, and integrations</td></tr>
+</table>
+
+<h2 contenteditable="true">Setting Up Your Brain</h2>
+
+<h3 contenteditable="true">Accessing the Brain</h3>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Go to Profile & Billing</div><p contenteditable="true">Click <strong>Profile & Billing</strong> in the top navigation bar</p></div>
+    <div class="step" data-n="2"><div class="step-title">Select the Brain Tab</div><p contenteditable="true">Click the <strong>Brain</strong> tab (6th tab, with globe icon)</p></div>
+    <div class="step" data-n="3"><div class="step-title">Enable Brain</div><p contenteditable="true">Make sure the <strong>Enabled</strong> toggle is turned on (green)</p></div>
+</div>
+
+<div class="img">🖼️ Screenshot: Brain Tab<br><small>/images/memory/memory-nav-01-profile.png</small></div>
+
+<h3 contenteditable="true">Creating Multiple Brains</h3>
+<ul>
+    <li contenteditable="true">Click <strong>"+ Add New Brain"</strong> to create a new brain</li>
+    <li contenteditable="true">Each brain has its own tab</li>
+    <li contenteditable="true">Switch between brains by clicking on their tabs</li>
+</ul>
+
+<h3 contenteditable="true">Adding Memory to a Brain</h3>
+<p contenteditable="true">Simply type or paste information into the text area.</p>
+<pre><code>"I am dyslexic and prefer responses in clear concise bullet points."
+"My company name is Acme Corp and we sell widgets."
+"Always respond in a friendly, professional tone."</code></pre>
+
+<h3 contenteditable="true">Linking Brain to a Lemonade</h3>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Open Your Lemonade</div></div>
+    <div class="step" data-n="2"><div class="step-title">Go to Details Tab</div></div>
+    <div class="step" data-n="3"><div class="step-title">Select Brain</div><p>Use the <strong>Brain</strong> dropdown</p></div>
+</div>
+
+<div class="img">🖼️ Screenshot: Brain Dropdown<br><small>/images/memory/memory-assign-01-lemonade.png</small></div>
+
+<div class="note" contenteditable="true">The Brain feature is marked as <strong>NEW</strong> in the Details tab!</div>
+
+<h2 contenteditable="true">What Makes Good Memory Content?</h2>
+
+<h3 contenteditable="true">About You (the User)</h3>
+<ul>
+    <li contenteditable="true">Your name and how to pronounce it</li>
+    <li contenteditable="true">Your role and goals</li>
+    <li contenteditable="true">Your top priorities for the next 3 months</li>
+    <li contenteditable="true">How you like to receive info (e.g., "Summarise in bullet points")</li>
+</ul>
+
+<h3 contenteditable="true">About Your Brand or Business</h3>
+<ul>
+    <li contenteditable="true">Mission and vision statement</li>
+    <li contenteditable="true">Your brand values or voice</li>
+    <li contenteditable="true">Key products or services</li>
+    <li contenteditable="true">Ideal customer or audience</li>
+    <li contenteditable="true">Taglines or slogans</li>
+</ul>
+
+<h2 contenteditable="true">Example Memory Entries</h2>
+<pre><code>"My name is Cien, pronounced 'Shen'."
+"LaunchLemonade's tone is fun, zesty, and a bit cheeky, but always helpful."
+"My top goal this quarter: Grow LinkedIn followers to 5,000."
+"Our onboarding process: 1. Welcome call; 2. Needs survey; 3. Product demo."</code></pre>
+
+<h2 contenteditable="true">Quick Start Checklist</h2>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Set up your Brain</div><p contenteditable="true">Profile & Billing → Brain → Add your core facts</p></div>
+    <div class="step" data-n="2"><div class="step-title">Link to Lemonades</div><p contenteditable="true">Lemonade → Details → Select your Brain</p></div>
+    <div class="step" data-n="3"><div class="step-title">Add specific knowledge</div><p contenteditable="true">Lemonade → Knowledge → Upload files or websites</p></div>
+    <div class="step" data-n="4"><div class="step-title">Test</div><p contenteditable="true">Run your Lemonade and ask it to recall a fact</p></div>
+</div>
+</div>
+
+<!-- DEPLOYMENT -->
+<div class="page" id="deployment">
+<h1 contenteditable="true">Deployment Options</h1>
+<p class="desc" contenteditable="true">Deploy your Lemonade via email, website embed, or API</p>
+
+<h2 contenteditable="true">Your Lemonade is Ready!</h2>
+<p contenteditable="true">You've built something amazing - now let's put it to work! You can:</p>
+<ol>
+    <li contenteditable="true"><strong>Email it</strong> – Chat with your AI right from your inbox</li>
+    <li contenteditable="true"><strong>Add it to your website</strong> – Give visitors instant AI-powered help</li>
+    <li contenteditable="true"><strong>Sell access</strong> – Turn your Lemonade into a business</li>
+</ol>
+
+<div class="img">🖼️ Screenshot: Deploy Tab<br><small>/images/deployment/deployment-tab-01-overview.png</small></div>
+
+<h2 contenteditable="true">Option 1: Deploy as Email Employee</h2>
+<p contenteditable="true">Imagine having an AI assistant you can email anytime - that's exactly what this does.</p>
+
+<h3 contenteditable="true">How It Works</h3>
+<ol>
+    <li contenteditable="true">Your Lemonade gets a custom email: yourname@ai.launchlemonade.app</li>
+    <li contenteditable="true">You email questions to this address</li>
+    <li contenteditable="true">Your Lemonade responds via email</li>
+</ol>
+
+<div class="warning" contenteditable="true"><strong>Security Note:</strong> Only emails from your registered email address will be processed.</div>
+
+<h2 contenteditable="true">Option 2: Website Chatbot (Embed Mix)</h2>
+<p contenteditable="true">Add a chat widget to your website so visitors can interact with your Lemonade.</p>
+<p contenteditable="true"><strong>Pricing:</strong> $29/month</p>
+
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Click Create Embed Mix</div></div>
+    <div class="step" data-n="2"><div class="step-title">Configure Branding</div><p>Customize colors and appearance</p></div>
+    <div class="step" data-n="3"><div class="step-title">Get Embed Code</div></div>
+    <div class="step" data-n="4"><div class="step-title">Add to Website</div><p>Paste before &lt;/body&gt;</p></div>
+</div>
+
+<h2 contenteditable="true">Option 3: Domain & Monetization (Subscription Mix)</h2>
+<p contenteditable="true">Ready to turn your Lemonade into a business? Sell access with subscription billing.</p>
+<p contenteditable="true"><strong>Pricing:</strong> $49/month + 10% transaction fees</p>
+
+<p contenteditable="true"><strong>What You Get:</strong></p>
+<ul>
+    <li contenteditable="true">Custom domain support</li>
+    <li contenteditable="true">Subscription management</li>
+    <li contenteditable="true">Payment processing via Stripe</li>
+    <li contenteditable="true">User management dashboard</li>
+    <li contenteditable="true">Analytics and usage tracking</li>
+</ul>
+
+<h2 contenteditable="true">Comparison Chart</h2>
+<table>
+    <tr><th>Feature</th><th>Email</th><th>Embed</th><th>Subscription</th></tr>
+    <tr><td>Use Case</td><td contenteditable="true">Personal</td><td contenteditable="true">Website</td><td contenteditable="true">Business</td></tr>
+    <tr><td>Users</td><td contenteditable="true">Just you</td><td contenteditable="true">Your visitors</td><td contenteditable="true">Paying customers</td></tr>
+    <tr><td>Custom Domain</td><td>No</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Revenue</td><td>No</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Monthly Cost</td><td>Free</td><td>$29</td><td>$49 + fees</td></tr>
+</table>
+
+<h2 contenteditable="true">What's Next</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">📜 Track Usage in History</div><div class="card-desc">Monitor all conversations</div></div>
+    <div class="card"><div class="card-title">🎨 Explore Whitelabelling</div><div class="card-desc">Learn more about Mixes</div></div>
+</div>
+</div>
+
+<!-- WHITELABELLING -->
+<div class="page" id="whitelabelling">
+<h1 contenteditable="true">Whitelabelling Your Lemonades (Mixes)</h1>
+<p class="desc" contenteditable="true">Package and deploy your Lemonades as branded chatbots</p>
+
+<h2 contenteditable="true">Why Create a Mix?</h2>
+<p contenteditable="true">You've built a Lemonade that works perfectly. Now what? A Mix is how you share it with the world - whether that's adding it to your website, selling subscriptions, or connecting it as a team tool.</p>
+<p contenteditable="true">Think of it as taking your Lemonade off the shelf and putting it somewhere people can actually use it, with your branding front and center.</p>
+
+<div class="img">🖼️ Screenshot: Mixes Page<br><small>/images/whitelabelling/whitelabel-mix-01-overview.png</small></div>
+
+<h2 contenteditable="true">What is a Mix?</h2>
+<p contenteditable="true">A Mix lets you:</p>
+<ul>
+    <li contenteditable="true">Add it as a <strong>Chatbot</strong> on your website</li>
+    <li contenteditable="true"><strong>Monetize</strong> it by selling subscriptions</li>
+    <li contenteditable="true">Connect it as a <strong>Team</strong> tool</li>
+</ul>
+<p contenteditable="true">The key word is "whitelabeling" - that means your logo, your colors, your domain. Not ours!</p>
+
+<h2 contenteditable="true">Mix Types</h2>
+
+<h3 contenteditable="true">Embed Mix (Website Chatbot) - $29/mo</h3>
+<p contenteditable="true">Deploy your Lemonade as a chat widget on your website.</p>
+<p contenteditable="true"><strong>Features:</strong> Embed on a single page or all pages, Custom branding and colors, Works on any website</p>
+
+<h3 contenteditable="true">Subscription Mix (Sell Access) - $49/mo + 10% fees</h3>
+<p contenteditable="true">Sell access to your Lemonade on your own domain.</p>
+<p contenteditable="true"><strong>Features:</strong> Deploy to your custom domain, Charge monthly or yearly subscriptions, Test before going live</p>
+
+<h2 contenteditable="true">Creating a Mix</h2>
+
+<h3 contenteditable="true">From the Mixes Page</h3>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Go to Mixes</div><p>Click <strong>Mixes</strong> in the top navigation</p></div>
+    <div class="step" data-n="2"><div class="step-title">Click Create Mix</div></div>
+    <div class="step" data-n="3"><div class="step-title">Configure Your Mix</div><p>Follow the setup wizard</p></div>
+</div>
+
+<h3 contenteditable="true">From a Lemonade's Deploy Tab</h3>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Open Your Lemonade</div></div>
+    <div class="step" data-n="2"><div class="step-title">Go to Deploy Tab</div></div>
+    <div class="step" data-n="3"><div class="step-title">Choose Mix Type</div><p><strong>"CREATE EMBED MIX"</strong> or <strong>"CREATE SUBSCRIPTION MIX"</strong></p></div>
+</div>
+
+<h2 contenteditable="true">Pro Tips for Your Mix</h2>
+<p contenteditable="true"><strong>Test first!</strong> Chat with your Lemonade a few times before going live.</p>
+<p contenteditable="true"><strong>Match your brand</strong> - Choose colors and logos that blend seamlessly.</p>
+<p contenteditable="true"><strong>Polish your instructions</strong> - Users will interact directly with your Lemonade.</p>
+<p contenteditable="true"><strong>Watch your usage</strong> - Check the chat count regularly.</p>
+
+<h2 contenteditable="true">What's Next?</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">📺 Watch Tutorial</div><div class="card-desc">Learn how to monetize your Lemonades</div></div>
+    <div class="card"><div class="card-title">✉️ Contact Support</div><div class="card-desc">Get help with Mix setup</div></div>
+</div>
+</div>
+
+<!-- TEMPLATES -->
+<div class="page" id="templates">
+<h1 contenteditable="true">Templates & Marketplace</h1>
+<p class="desc" contenteditable="true">Discover pre-built Lemonades and get inspired by the community</p>
+
+<h2 contenteditable="true">Not Sure Where to Start?</h2>
+<p contenteditable="true">Browse 80+ ready-made Lemonades in the Marketplace! Find one close to what you need, click 'Use Template,' and customize it to fit your business.</p>
+<p contenteditable="true">Templates are your shortcut - someone else already figured out the instructions, structure, and settings. You just add your unique knowledge and make it yours!</p>
+
+<h2 contenteditable="true">Accessing the Marketplace</h2>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Navigate to Marketplace</div><p>Click <strong>Marketplace</strong> in the top navigation bar</p></div>
+    <div class="step" data-n="2"><div class="step-title">Browse Templates</div><p>Explore categories and featured Lemonades</p></div>
+</div>
+
+<h2 contenteditable="true">Template Categories</h2>
+<table>
+    <tr><th>Category</th><th>Examples</th></tr>
+    <tr><td contenteditable="true"><strong>Customer Support</strong></td><td contenteditable="true">FAQ bots, Help desk assistants</td></tr>
+    <tr><td contenteditable="true"><strong>Marketing</strong></td><td contenteditable="true">Content creators, Social media managers</td></tr>
+    <tr><td contenteditable="true"><strong>Sales</strong></td><td contenteditable="true">Lead qualifiers, Product advisors</td></tr>
+    <tr><td contenteditable="true"><strong>Research</strong></td><td contenteditable="true">Data analysts, Market researchers</td></tr>
+    <tr><td contenteditable="true"><strong>Personal</strong></td><td contenteditable="true">Coaches, Tutors, Assistants</td></tr>
+    <tr><td contenteditable="true"><strong>Development</strong></td><td contenteditable="true">Code helpers, Documentation writers</td></tr>
+</table>
+
+<h2 contenteditable="true">Using a Template</h2>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Browse Templates</div><p>Find a template that matches your use case</p></div>
+    <div class="step" data-n="2"><div class="step-title">Preview</div><p>Click on a template to see details</p></div>
+    <div class="step" data-n="3"><div class="step-title">Use Template</div><p>Click <strong>"Use This Template"</strong></p></div>
+    <div class="step" data-n="4"><div class="step-title">Make it Yours</div><p>Add your own knowledge and tweak the instructions</p></div>
+</div>
+
+<div class="tip" contenteditable="true">Templates are starting points, not final products! Always customize the Instructions and add your own Knowledge. The magic happens when you make it specific to YOUR business.</div>
+
+<h2 contenteditable="true">Featured Templates</h2>
+
+<h3 contenteditable="true">Customer Support Bot</h3>
+<p contenteditable="true">Perfect for handling common questions and support tickets.</p>
+<ul>
+    <li contenteditable="true">Pre-built FAQ handling</li>
+    <li contenteditable="true">Escalation logic</li>
+    <li contenteditable="true">Friendly, professional tone</li>
+</ul>
+
+<h3 contenteditable="true">Content Creator</h3>
+<p contenteditable="true">Generate blog posts, social media content, and marketing copy.</p>
+
+<h3 contenteditable="true">Sales Assistant</h3>
+<p contenteditable="true">Qualify leads and answer product questions.</p>
+
+<h3 contenteditable="true">Meeting Summarizer</h3>
+<p contenteditable="true">Turn meeting transcripts into actionable summaries.</p>
+
+<h2 contenteditable="true">What's Next?</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">✨ Create from Scratch</div><div class="card-desc">Build your own Lemonade</div></div>
+    <div class="card"><div class="card-title">📚 Add Knowledge</div><div class="card-desc">Make your Lemonades smarter</div></div>
+</div>
+</div>
+
+<!-- HISTORY -->
+<div class="page" id="history">
+<h1 contenteditable="true">Chat History</h1>
+<p class="desc" contenteditable="true">Access and manage your conversation history with all your Lemonades</p>
+
+<h2 contenteditable="true">Overview</h2>
+<p contenteditable="true">Ever wish you could pick up a conversation where you left off? The History page saves all your chats with your Lemonades - so you can review past answers, learn from previous sessions, and continue conversations anytime.</p>
+
+<h2 contenteditable="true">What You Can Do Here</h2>
+<ul>
+    <li contenteditable="true"><strong>Search</strong> through all your past conversations</li>
+    <li contenteditable="true"><strong>Review</strong> what your Lemonade said and how it handled questions</li>
+    <li contenteditable="true"><strong>Continue</strong> any conversation right where it ended</li>
+    <li contenteditable="true"><strong>Export</strong> conversations for your records or training</li>
+</ul>
+
+<h2 contenteditable="true">Accessing History</h2>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Navigate to History</div><p>Click <strong>History</strong> in the top navigation bar</p></div>
+    <div class="step" data-n="2"><div class="step-title">View All Conversations</div><p>See a chronological list of all your chat sessions</p></div>
+</div>
+
+<h2 contenteditable="true">History Features</h2>
+
+<h3 contenteditable="true">Conversation List</h3>
+<table>
+    <tr><th>Information</th><th>Description</th></tr>
+    <tr><td><strong>Lemonade Name</strong></td><td contenteditable="true">Which Lemonade the conversation was with</td></tr>
+    <tr><td><strong>Preview</strong></td><td contenteditable="true">First message or topic of the conversation</td></tr>
+    <tr><td><strong>Date/Time</strong></td><td contenteditable="true">When the conversation took place</td></tr>
+    <tr><td><strong>Duration</strong></td><td contenteditable="true">How long the conversation lasted</td></tr>
+</table>
+
+<h2 contenteditable="true">History vs Memory</h2>
+<p contenteditable="true">Quick clarification: History is for you to review past chats. But your Lemonade won't automatically remember these conversations unless you turn on "Remember All Conversations" in the Add On tab.</p>
+<p contenteditable="true">Think of it this way: <strong>History is your diary, Memory is your Lemonade's diary.</strong></p>
+
+<table>
+    <tr><th>Feature</th><th>History</th><th>Remember All Conversations</th></tr>
+    <tr><td>What it does</td><td contenteditable="true">Stores chat logs for you to review</td><td contenteditable="true">Makes the Lemonade recall past chats</td></tr>
+    <tr><td>Location</td><td>History page</td><td>Add On tab in Editor</td></tr>
+    <tr><td>Affects AI</td><td>No</td><td>Yes</td></tr>
+</table>
+
+<div class="tip" contenteditable="true">Use History to review how your Lemonade handles different questions. This helps you improve your Instructions and Knowledge over time.</div>
+
+<h2 contenteditable="true">What's Next</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">🧠 Memory</div><div class="card-desc">Make your Lemonade remember conversations automatically</div></div>
+    <div class="card"><div class="card-title">✏️ Lemonade Editor</div><div class="card-desc">Improve your Instructions based on History insights</div></div>
+</div>
+</div>
+
+<!-- API DOC -->
+<div class="page" id="api-doc">
+<h1 contenteditable="true">API & Developer Mode</h1>
+<p class="desc" contenteditable="true">Connect your Lemonades to external applications via API</p>
+
+<h2 contenteditable="true">Overview</h2>
+<p contenteditable="true">Want to connect your Lemonade to your own app or automate it with tools like Zapier? Developer Mode gives you API access to do exactly that.</p>
+
+<h2 contenteditable="true">Who This Is For</h2>
+<p contenteditable="true">This page is for developers who want to integrate Lemonades into applications, workflows, or automation systems.</p>
+
+<div class="note" contenteditable="true"><strong>Not a developer?</strong> That's OK! You can still use Zapier integration without writing code. Skip to the Zapier Integration section.</div>
+
+<h2 contenteditable="true">Enabling Developer Mode</h2>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Open Lemonade Editor</div></div>
+    <div class="step" data-n="2"><div class="step-title">Go to Add On Tab</div></div>
+    <div class="step" data-n="3"><div class="step-title">Enable Developer Mode</div><p>Toggle <strong>Developer Mode</strong> to On</p></div>
+</div>
+
+<h2 contenteditable="true">Getting Your API Key</h2>
+<div class="steps">
+    <div class="step" data-n="1"><div class="step-title">Go to Profile & Billing</div></div>
+    <div class="step" data-n="2"><div class="step-title">Navigate to API Keys</div></div>
+    <div class="step" data-n="3"><div class="step-title">Generate Key</div><p>Click <strong>"Generate New Key"</strong></p></div>
+</div>
+
+<div class="warning" contenteditable="true"><strong>Important:</strong> Your API key is like a password - keep it secret! Don't share it publicly or save it in code repositories.</div>
+
+<h2 contenteditable="true">API Endpoints</h2>
+
+<h3 contenteditable="true">Send Message</h3>
+<pre><code>POST https://api.launchlemonade.app/v1/chat</code></pre>
+
+<h3 contenteditable="true">Request Body</h3>
+<pre><code>{
+  "lemonade_id": "your-lemonade-id",
+  "message": "Hello, how can you help me?",
+  "conversation_id": "optional-conversation-id"
+}</code></pre>
+
+<h3 contenteditable="true">Response</h3>
+<pre><code>{
+  "response": "Hello! I'm here to help you with...",
+  "conversation_id": "conv_123abc",
+  "tokens_used": 150
+}</code></pre>
+
+<h2 contenteditable="true">Zapier Integration</h2>
+<p contenteditable="true">Connect your Lemonades to 5,000+ apps through Zapier.</p>
+
+<h3 contenteditable="true">Popular Zapier Use Cases</h3>
+<table>
+    <tr><th>Trigger</th><th>Action</th><th>Use Case</th></tr>
+    <tr><td contenteditable="true">New email received</td><td contenteditable="true">Send to Lemonade</td><td contenteditable="true">Auto-draft responses</td></tr>
+    <tr><td contenteditable="true">New form submission</td><td contenteditable="true">Send to Lemonade</td><td contenteditable="true">Process leads</td></tr>
+    <tr><td contenteditable="true">Scheduled time</td><td contenteditable="true">Query Lemonade</td><td contenteditable="true">Generate daily reports</td></tr>
+    <tr><td contenteditable="true">Slack message</td><td contenteditable="true">Send to Lemonade</td><td contenteditable="true">Answer team questions</td></tr>
+</table>
+
+<h2 contenteditable="true">Rate Limits</h2>
+<table>
+    <tr><th>Plan</th><th>Requests/Minute</th><th>Requests/Day</th></tr>
+    <tr><td>Free</td><td>10</td><td>100</td></tr>
+    <tr><td>Pro</td><td>60</td><td>10,000</td></tr>
+    <tr><td>Enterprise</td><td>Custom</td><td>Custom</td></tr>
+</table>
+
+<h2 contenteditable="true">Code Examples</h2>
+
+<h3 contenteditable="true">Python</h3>
+<pre><code>import requests
+
+response = requests.post(
+    "https://api.launchlemonade.app/v1/chat",
+    headers={"Authorization": f"Bearer {API_KEY}"},
+    json={"lemonade_id": LEMONADE_ID, "message": "Hello!"}
+)
+print(response.json()["response"])</code></pre>
+
+<h3 contenteditable="true">JavaScript</h3>
+<pre><code>const response = await fetch('https://api.launchlemonade.app/v1/chat', {
+  method: 'POST',
+  headers: {'Authorization': `Bearer ${API_KEY}`},
+  body: JSON.stringify({lemonade_id: 'your-id', message: 'Hello!'})
+});
+const data = await response.json();</code></pre>
+
+<h2 contenteditable="true">What's Next</h2>
+<div class="cards">
+    <div class="card"><div class="card-title">⚡ Zapier Guide</div><div class="card-desc">Step-by-step Zapier integration</div></div>
+    <div class="card"><div class="card-title">✏️ Lemonade Editor</div><div class="card-desc">Customize before integrating</div></div>
+</div>
+</div>
+
+</main>
+</div>
+
+<script>
+// Page navigation
+document.querySelectorAll('.sidebar-nav a').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(page).classList.add('active');
+    });
+});
+
+// Copy changes
+function copyChanges() {
+    const changes = [];
+    document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+        if (el.dataset.original && el.innerHTML !== el.dataset.original) {
+            changes.push(`BEFORE: ${el.dataset.original}\nAFTER: ${el.innerHTML}\n---`);
+        }
+    });
+    if (changes.length === 0) {
+        alert('No changes made yet!');
+    } else {
+        navigator.clipboard.writeText(changes.join('\n\n'));
+        alert(`${changes.length} change(s) copied!`);
+    }
+}
+
+// Store original values
+document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+    el.dataset.original = el.innerHTML;
+});
+</script>
+</body>
+</html>
