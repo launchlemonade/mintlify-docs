@@ -1,6 +1,9 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "LaunchLemonade",
+  "metadata": {
+    "google-site-verification": "wvkfey9OGadB8oVDRfTOe58UhsF9NKNsahyuJ6WJ99Q"
+  },
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
